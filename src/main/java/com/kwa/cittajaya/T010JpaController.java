@@ -43,10 +43,16 @@ public class T010JpaController extends GenericController {
             return setError("Kode", "Entity is null or spaces");
         }
 
+        
         if (Util.isNullOrSpaces(t010.getDeksripsi())) {
             return setError("Deskripsi", "Entity is null or spaces");
         }
         
+        T010PK tt = t010.getT010PK();
+        T010 tmp = findT010(t010.getT010PK());
+        if(tmp!=null){
+            return setError("kode","Entry already exist");
+        }
         
         getEm().persist(t010);
         return setOK("Entry Created");

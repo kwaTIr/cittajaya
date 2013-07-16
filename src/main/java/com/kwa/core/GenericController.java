@@ -25,7 +25,7 @@ public  class GenericController implements Serializable{
     }
     private EntityManager em; 
     private KWAMesg pmesg;
-    private static final String connName = "NBPvYMPU"; 
+    private static final String connName = "CITTAJAYA"; 
 
     public KWAMesg getPmesg() {
         return pmesg;
@@ -68,6 +68,11 @@ public  class GenericController implements Serializable{
     public void commitTrx(){
         em.getTransaction().commit();
         
+    }
+    
+    public void closeAllCon(){
+        em.close();
+        emf.close();
     }
     
     public KWAMesg setError(String fname, String mesg){

@@ -41,6 +41,11 @@ public class T010 implements Serializable {
         this.t010PK = t010PK;
     }
 
+    public T010(String tipe, String kode, String deskripsi){
+        T010PK t010pk = new T010PK(tipe,kode);
+        this.t010PK = t010pk;
+        this.deksripsi = deskripsi;
+    }
     public T010(T010PK t010PK, String deksripsi) {
         this.t010PK = t010PK;
         this.deksripsi = deksripsi;
