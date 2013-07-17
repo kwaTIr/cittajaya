@@ -4,6 +4,12 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>com.kwa.cittajaya.Tkatalog</class>
     <class>com.kwa.cittajaya.T010</class>
+    <class>com.kwa.cittajaya.Tkartustok</class>
+    <class>com.kwa.cittajaya.Ttransbrgitem</class>
+    <class>com.kwa.cittajaya.Ttransbrgheader</class>
+    <class>com.kwa.cittajaya.Tklien</class>
+    <class>com.kwa.cittajaya.Test2</class>
+    <class>com.kwa.cittajaya.Test1</class>
     <shared-cache-mode>NONE</shared-cache-mode>
     <validation-mode>NONE</validation-mode>
     <properties>
