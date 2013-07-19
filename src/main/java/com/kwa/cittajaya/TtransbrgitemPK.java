@@ -16,10 +16,10 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class TtransbrgitemPK implements Serializable {
     @Basic(optional = false)
-    @Column(name = "kode", nullable = false, length = 10)
+    @Column(name = "kode")
     private String kode;
     @Basic(optional = false)
-    @Column(name = "kodekatalog", nullable = false, length = 4)
+    @Column(name = "kodekatalog")
     private String kodekatalog;
 
     public TtransbrgitemPK() {

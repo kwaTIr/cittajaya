@@ -14,7 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -22,8 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author arinegara
  */
 @Entity
-@Table(name = "tkartustok", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"kodekatalog", "kodetrans"})})
+@Table(name = "tkartustok")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Tkartustok.findAll", query = "SELECT t FROM Tkartustok t"),
@@ -38,22 +36,22 @@ public class Tkartustok implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "nourut", nullable = false)
+    @Column(name = "nourut")
     private Long nourut;
     @Basic(optional = false)
-    @Column(name = "kodekatalog", nullable = false, length = 4)
+    @Column(name = "kodekatalog")
     private String kodekatalog;
     @Basic(optional = false)
-    @Column(name = "kodetrans", nullable = false, length = 10)
+    @Column(name = "kodetrans")
     private String kodetrans;
     @Basic(optional = false)
-    @Column(name = "awal", nullable = false)
+    @Column(name = "awal")
     private int awal;
     @Basic(optional = false)
-    @Column(name = "transaksi", nullable = false)
+    @Column(name = "transaksi")
     private int transaksi;
     @Basic(optional = false)
-    @Column(name = "akhir", nullable = false)
+    @Column(name = "akhir")
     private int akhir;
 
     public Tkartustok() {

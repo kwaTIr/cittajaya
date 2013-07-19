@@ -105,8 +105,7 @@ CREATE TABLE `tkartustok` (
   `transaksi` int(11) NOT NULL,
   `akhir` int(11) NOT NULL,
   PRIMARY KEY (`nourut`),
-  UNIQUE KEY `unique` (`kodekatalog`,`kodetrans`),
-  KEY `index` (`nourut`)
+  UNIQUE KEY `uniqe` (`kodekatalog`,`kodetrans`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -238,4 +237,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-07-17 22:34:04
+-- Dump completed on 2013-07-20  2:42:00

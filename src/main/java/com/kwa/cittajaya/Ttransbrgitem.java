@@ -35,19 +35,19 @@ public class Ttransbrgitem implements Serializable {
     @EmbeddedId
     protected TtransbrgitemPK ttransbrgitemPK;
     @Basic(optional = false)
-    @Column(name = "jumlah", nullable = false)
+    @Column(name = "jumlah")
     private double jumlah;
     @Basic(optional = false)
-    @Column(name = "satuan", nullable = false, length = 4)
+    @Column(name = "satuan")
     private String satuan;
     @Basic(optional = false)
-    @Column(name = "harga", nullable = false)
+    @Column(name = "harga")
     private double harga;
     @Basic(optional = false)
-    @Column(name = "discount", nullable = false, length = 20)
+    @Column(name = "discount")
     private String discount;
     @Basic(optional = false)
-    @Column(name = "total", nullable = false)
+    @Column(name = "total")
     private double total;
 
     public Ttransbrgitem() {

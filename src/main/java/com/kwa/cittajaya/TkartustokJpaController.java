@@ -5,9 +5,6 @@
 package com.kwa.cittajaya;
 
 import com.kwa.cittajaya.exceptions.NonexistentEntityException;
-import com.kwa.core.GenericController;
-import com.kwa.core.KWAMesg;
-import com.kwa.core.Util;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -21,24 +18,18 @@ import javax.persistence.criteria.Root;
  *
  * @author arinegara
  */
-public class TkartustokJpaController extends GenericController {
+public class TkartustokJpaController implements Serializable {
 
-    public TkartustokJpaController(EntityManagerFactory emf, EntityManager em) throws Exception {
-        super(emf,em);
+    public TkartustokJpaController(EntityManagerFactory emf) {
+        this.emf = emf;
+    }
+    private EntityManagerFactory emf = null;
+
+    public EntityManager getEntityManager() {
+        return emf.createEntityManager();
     }
 
-
-    public KWAMesg create(Tkartustok tkartustok) {
-        
-                checkConnection();
-        setError("unknown", "unknownError");
-        
-        if(Util.isNullOrSpaces(tkartustok.getKodetrans())){
-            return setError("kodetrans","Entity is null or spaces");
-        }
-        
-        TtransbrgheaderJpaController tbrgh = TtransbrgheaderJpaController(this.getEmf(),this.getEm())
-                ;
+    public void create(Tkartustok tkartustok) {
         EntityManager em = null;
         try {
             em = getEntityManager();

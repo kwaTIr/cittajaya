@@ -10,6 +10,7 @@ import com.kwa.core.GenericController;
 import com.kwa.core.KWAMesg;
 import com.kwa.core.Util;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -25,82 +26,88 @@ import javax.persistence.criteria.Root;
 public class TtransbrgheaderJpaController extends GenericController {
 
     public TtransbrgheaderJpaController(EntityManagerFactory emf, EntityManager em) throws Exception {
-        super(emf,em);
+        super(emf, em);
     }
 
 
-    public KWAMesg create(Ttransbrgheader ttransbrgheader) throws Exception {
+    public KWAMesg create(Ttransbrgheader ttransbrgheader) throws PreexistingEntityException, Exception {
+        checkConnection();
+        setError("unknown", "unknownError");
+
+        if (Util.isNullOrSpaces(ttransbrgheader.getKode())) {
+            return setError("Kode", "Entity is null or spaces");
+        }
+        
+        if(!Util.isDateValid(ttransbrgheader.getTanggal(),"YYMMDD")){
+            return setError("tanggal", "Entity is invalid");
+        }
+        
+                TklienJpaController tklienp = new TklienJpaController(getEmf(), getEm());
+        Tklien tklien = tklienp.findTklien(ttransbrgheader.getKlien());
+        if (tklien == null) {
+            return setError("Klien", "Entity is invalid");
+        }
+        char[] io = {'I', 'O'};
+        if(!Arrays.asList(io).contains(ttransbrgheader.getInout())){
+            return setError("Inout", "Entity is null or spaces");
+        }
+         
+                if (Util.isNullOrSpaces(ttransbrgheader.getKeterangan())) {
+            return setError("Deskripsi", "Entity is null or spaces");
+        }
+                
+         getEm().persist(ttransbrgheader);
+        return setOK("Entry Created");
+    }
+
+    public KWAMesg edit(Ttransbrgheader ttransbrgheader) throws NonexistentEntityException, Exception {
+          checkConnection();
+        setError("unknown", "unknownError");
+
+        if (Util.isNullOrSpaces(ttransbrgheader.getKode())) {
+            return setError("Kode", "Entity is null or spaces");
+        }
+
+        if (findTtransbrgheader(ttransbrgheader.getKode()) == null) {
+            return setError("Primary Key", "Entry doesn't exist");
+        }
+  
+               if(!Util.isDateValid(ttransbrgheader.getTanggal(),"YYMMDD")){
+            return setError("tanggal", "Entity is invalid");
+        }
+        
+                TklienJpaController tklienp = new TklienJpaController(getEmf(), getEm());
+        Tklien tklien = tklienp.findTklien(ttransbrgheader.getKlien());
+        if (tklien == null) {
+            return setError("Klien", "Entity is invalid");
+        }
+        char[] io = {'I', 'O'};
+        if(!Arrays.asList(io).contains(ttransbrgheader.getInout())){
+            return setError("Inout", "Entity is null or spaces");
+        }
+         
+                if (Util.isNullOrSpaces(ttransbrgheader.getKeterangan())) {
+            return setError("Deskripsi", "Entity is null or spaces");
+        }
+                getEm().merge(ttransbrgheader);
+        return setOK("Entry Modified");
+        
+    }
+
+    public KWAMesg destroy(String id) throws NonexistentEntityException {
+
                 checkConnection();
         setError("unknown", "unknownError");
-        
-                if(Util.isNullOrSpaces(ttransbrgheader.getKode())){
-            return setError("kode","Entity is null or spaces");
+        if (Util.isNullOrSpaces(id)) {
+            return setError("kode", "Entity is null or spaces");
         }
-                
-                if(Util.isNullOrSpaces(ttransbrgheader.getKode())){
-            return setError("kode","Entity is null or spaces");
-        }                
-                
-        EntityManager em = null;
-        try {
-            em = getEntityManager();
-            em.getTransaction().begin();
-            em.persist(ttransbrgheader);
-            em.getTransaction().commit();
-        } catch (Exception ex) {
-            if (findTtransbrgheader(ttransbrgheader.getKode()) != null) {
-                throw new PreexistingEntityException("Ttransbrgheader " + ttransbrgheader + " already exists.", ex);
-            }
-            throw ex;
-        } finally {
-            if (em != null) {
-                em.close();
-            }
+        if (findTtransbrgheader(id) == null) {
+            return setError("Primary Key", "Entry doesn't exist");
         }
-    }
+        Ttransbrgheader tbh = getEm().getReference(Ttransbrgheader.class, id);
+        getEm().remove(tbh);
 
-    public void edit(Ttransbrgheader ttransbrgheader) throws NonexistentEntityException, Exception {
-        EntityManager em = null;
-        try {
-            em = getEntityManager();
-            em.getTransaction().begin();
-            ttransbrgheader = em.merge(ttransbrgheader);
-            em.getTransaction().commit();
-        } catch (Exception ex) {
-            String msg = ex.getLocalizedMessage();
-            if (msg == null || msg.length() == 0) {
-                String id = ttransbrgheader.getKode();
-                if (findTtransbrgheader(id) == null) {
-                    throw new NonexistentEntityException("The ttransbrgheader with id " + id + " no longer exists.");
-                }
-            }
-            throw ex;
-        } finally {
-            if (em != null) {
-                em.close();
-            }
-        }
-    }
-
-    public void destroy(String id) throws NonexistentEntityException {
-        EntityManager em = null;
-        try {
-            em = getEntityManager();
-            em.getTransaction().begin();
-            Ttransbrgheader ttransbrgheader;
-            try {
-                ttransbrgheader = em.getReference(Ttransbrgheader.class, id);
-                ttransbrgheader.getKode();
-            } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The ttransbrgheader with id " + id + " no longer exists.", enfe);
-            }
-            em.remove(ttransbrgheader);
-            em.getTransaction().commit();
-        } finally {
-            if (em != null) {
-                em.close();
-            }
-        }
+        return setOK("Entry Deleted");
     }
 
     public List<Ttransbrgheader> findTtransbrgheaderEntities() {
@@ -112,41 +119,32 @@ public class TtransbrgheaderJpaController extends GenericController {
     }
 
     private List<Ttransbrgheader> findTtransbrgheaderEntities(boolean all, int maxResults, int firstResult) {
-        EntityManager em = getEntityManager();
-        try {
-            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+ 
+            CriteriaQuery cq = getEm().getCriteriaBuilder().createQuery();
             cq.select(cq.from(Ttransbrgheader.class));
-            Query q = em.createQuery(cq);
+            Query q = getEm().createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
                 q.setFirstResult(firstResult);
             }
             return q.getResultList();
-        } finally {
-            em.close();
-        }
+       
     }
 
     public Ttransbrgheader findTtransbrgheader(String id) {
-        EntityManager em = getEntityManager();
-        try {
-            return em.find(Ttransbrgheader.class, id);
-        } finally {
-            em.close();
-        }
+
+            return getEm().find(Ttransbrgheader.class, id);
+
     }
 
     public int getTtransbrgheaderCount() {
-        EntityManager em = getEntityManager();
-        try {
-            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+
+            CriteriaQuery cq = getEm().getCriteriaBuilder().createQuery();
             Root<Ttransbrgheader> rt = cq.from(Ttransbrgheader.class);
-            cq.select(em.getCriteriaBuilder().count(rt));
-            Query q = em.createQuery(cq);
+            cq.select(getEm().getCriteriaBuilder().count(rt));
+            Query q = getEm().createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
-        } finally {
-            em.close();
-        }
+
     }
     
 }

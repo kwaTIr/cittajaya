@@ -32,19 +32,19 @@ public class Ttransbrgheader implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "kode", nullable = false, length = 10)
+    @Column(name = "kode")
     private String kode;
     @Basic(optional = false)
-    @Column(name = "tanggal", nullable = false, length = 6)
+    @Column(name = "tanggal")
     private String tanggal;
     @Basic(optional = false)
-    @Column(name = "klien", nullable = false, length = 4)
+    @Column(name = "klien")
     private String klien;
     @Basic(optional = false)
-    @Column(name = "inout", nullable = false)
+    @Column(name = "inout")
     private char inout;
     @Basic(optional = false)
-    @Column(name = "keterangan", nullable = false, length = 255)
+    @Column(name = "keterangan")
     private String keterangan;
 
     public Ttransbrgheader() {
