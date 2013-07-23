@@ -25,10 +25,11 @@ DROP TABLE IF EXISTS `t010`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `t010` (
-  `deksripsi` varchar(10) NOT NULL,
-  `kode` varchar(4) NOT NULL,
   `tipe` varchar(4) NOT NULL,
-  PRIMARY KEY (`kode`,`tipe`)
+  `kode` varchar(4) NOT NULL,
+  `deksripsi` varchar(10) NOT NULL,
+  `assocval` varchar(10) NOT NULL,
+  PRIMARY KEY (`tipe`,`kode`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -39,55 +40,6 @@ CREATE TABLE `t010` (
 LOCK TABLES `t010` WRITE;
 /*!40000 ALTER TABLE `t010` DISABLE KEYS */;
 /*!40000 ALTER TABLE `t010` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `test1`
---
-
-DROP TABLE IF EXISTS `test1`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `test1` (
-  `idtest1` int(11) NOT NULL,
-  `test1col` varchar(45) NOT NULL,
-  `test1col1` varchar(45) NOT NULL,
-  PRIMARY KEY (`idtest1`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `test1`
---
-
-LOCK TABLES `test1` WRITE;
-/*!40000 ALTER TABLE `test1` DISABLE KEYS */;
-/*!40000 ALTER TABLE `test1` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `test2`
---
-
-DROP TABLE IF EXISTS `test2`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `test2` (
-  `idtest2` int(11) NOT NULL,
-  `test2col` varchar(45) NOT NULL,
-  PRIMARY KEY (`idtest2`,`test2col`),
-  KEY `test1_idx` (`idtest2`),
-  CONSTRAINT `test1` FOREIGN KEY (`idtest2`) REFERENCES `test1` (`idtest1`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `test2`
---
-
-LOCK TABLES `test2` WRITE;
-/*!40000 ALTER TABLE `test2` DISABLE KEYS */;
-/*!40000 ALTER TABLE `test2` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -175,6 +127,30 @@ LOCK TABLES `tklien` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `tpegawai`
+--
+
+DROP TABLE IF EXISTS `tpegawai`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tpegawai` (
+  `kode` varchar(4) NOT NULL,
+  `nama` varchar(45) NOT NULL,
+  `status` varchar(4) NOT NULL COMMENT 'MSF010:TSPG',
+  PRIMARY KEY (`kode`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tpegawai`
+--
+
+LOCK TABLES `tpegawai` WRITE;
+/*!40000 ALTER TABLE `tpegawai` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tpegawai` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `ttransbrgheader`
 --
 
@@ -185,7 +161,8 @@ CREATE TABLE `ttransbrgheader` (
   `kode` varchar(10) NOT NULL COMMENT 'reverse YYMMDDXXXX',
   `tanggal` varchar(6) NOT NULL COMMENT 'YYMMDD',
   `klien` varchar(4) NOT NULL COMMENT 'tklien',
-  `inout` char(1) NOT NULL COMMENT 'I  : Masuk (Menambah SOH)\\nO : Keluar (mengurangi SOH)',
+  `pegawai` varchar(4) NOT NULL,
+  `keluarmasuk` varchar(1) NOT NULL COMMENT 'I  : Masuk (Menambah SOH)\\\\\\\\nO : Keluar (mengurangi SOH)',
   `keterangan` varchar(255) NOT NULL,
   PRIMARY KEY (`kode`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='transaksi barang header';
@@ -237,4 +214,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-07-20  2:42:00
+-- Dump completed on 2013-07-24  0:23:54
