@@ -42,16 +42,20 @@ public class T010JpaController extends GenericController {
             return setError("Kode", "Entity is null or spaces");
         }
 
+        T010 tmp = findT010(t010.getT010PK());
+        if (tmp != null) {
+            return setError("kode", "Entry already exist");
+        }
 
         if (Util.isNullOrSpaces(t010.getDeksripsi())) {
             return setError("Deskripsi", "Entity is null or spaces");
         }
 
-        T010PK tt = t010.getT010PK();
-        T010 tmp = findT010(t010.getT010PK());
-        if (tmp != null) {
-            return setError("kode", "Entry already exist");
+        if (Util.isNullOrSpaces(t010.getAssocval())) {
+            return setError("assocval", "Entity is null or spaces");
         }
+
+
 
         getEm().persist(t010);
         return setOK("Entry Created");
@@ -77,10 +81,13 @@ public class T010JpaController extends GenericController {
             return setError("Primary Key", "Entry doesn't exist");
         }
 
-        if (Util.isNullOrSpaces(t010.getT010PK().getKode())) {
-            return setError("Kode", "Entity is null or spaces");
+        if (Util.isNullOrSpaces(t010.getDeksripsi())) {
+            return setError("Deskripsi", "Entity is null or spaces");
         }
 
+        if (Util.isNullOrSpaces(t010.getAssocval())) {
+            return setError("assocval", "Entity is null or spaces");
+        }
         getEm().merge(t010);
         return setOK("Entry Modified");
     }
@@ -133,7 +140,7 @@ public class T010JpaController extends GenericController {
 
     public T010 findT010(T010PK id) {
         checkConnection();
-                if (Util.isNullOrSpaces(id.getTipe())) {
+        if (Util.isNullOrSpaces(id.getTipe())) {
             return null;
         }
 
@@ -145,7 +152,8 @@ public class T010JpaController extends GenericController {
     }
 
     public T010 findT010(String tipe, String kode) {
-  
+        if(tipe==null || kode==null) return null;
+        if(tipe.trim().equals("") || kode.trim().equals("") ) return null;
         T010PK id = new T010PK(tipe, kode);
         return findT010(id);
 

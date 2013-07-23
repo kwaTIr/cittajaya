@@ -10,6 +10,7 @@
     <class>com.kwa.cittajaya.Tklien</class>
     <class>com.kwa.cittajaya.Test2</class>
     <class>com.kwa.cittajaya.Test1</class>
+    <class>com.kwa.cittajaya.Tpegawai</class>
     <shared-cache-mode>NONE</shared-cache-mode>
     <validation-mode>NONE</validation-mode>
     <properties>

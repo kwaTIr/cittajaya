@@ -26,7 +26,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Ttransbrgheader.findByKode", query = "SELECT t FROM Ttransbrgheader t WHERE t.kode = :kode"),
     @NamedQuery(name = "Ttransbrgheader.findByTanggal", query = "SELECT t FROM Ttransbrgheader t WHERE t.tanggal = :tanggal"),
     @NamedQuery(name = "Ttransbrgheader.findByKlien", query = "SELECT t FROM Ttransbrgheader t WHERE t.klien = :klien"),
-    @NamedQuery(name = "Ttransbrgheader.findByInout", query = "SELECT t FROM Ttransbrgheader t WHERE t.inout = :inout"),
+    @NamedQuery(name = "Ttransbrgheader.findByPegawai", query = "SELECT t FROM Ttransbrgheader t WHERE t.pegawai = :pegawai"),
+    @NamedQuery(name = "Ttransbrgheader.findByKeluarmasuk", query = "SELECT t FROM Ttransbrgheader t WHERE t.keluarmasuk = :keluarmasuk"),
     @NamedQuery(name = "Ttransbrgheader.findByKeterangan", query = "SELECT t FROM Ttransbrgheader t WHERE t.keterangan = :keterangan")})
 public class Ttransbrgheader implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -41,8 +42,11 @@ public class Ttransbrgheader implements Serializable {
     @Column(name = "klien")
     private String klien;
     @Basic(optional = false)
-    @Column(name = "inout")
-    private char inout;
+    @Column(name = "pegawai")
+    private String pegawai;
+    @Basic(optional = false)
+    @Column(name = "keluarmasuk")
+    private String keluarmasuk;
     @Basic(optional = false)
     @Column(name = "keterangan")
     private String keterangan;
@@ -54,11 +58,12 @@ public class Ttransbrgheader implements Serializable {
         this.kode = kode;
     }
 
-    public Ttransbrgheader(String kode, String tanggal, String klien, char inout, String keterangan) {
+    public Ttransbrgheader(String kode, String tanggal, String klien, String pegawai, String keluarmasuk, String keterangan) {
         this.kode = kode;
         this.tanggal = tanggal;
         this.klien = klien;
-        this.inout = inout;
+        this.pegawai = pegawai;
+        this.keluarmasuk = keluarmasuk;
         this.keterangan = keterangan;
     }
 
@@ -86,12 +91,20 @@ public class Ttransbrgheader implements Serializable {
         this.klien = klien;
     }
 
-    public char getInout() {
-        return inout;
+    public String getPegawai() {
+        return pegawai;
     }
 
-    public void setInout(char inout) {
-        this.inout = inout;
+    public void setPegawai(String pegawai) {
+        this.pegawai = pegawai;
+    }
+
+    public String getKeluarmasuk() {
+        return keluarmasuk;
+    }
+
+    public void setKeluarmasuk(String keluarmasuk) {
+        this.keluarmasuk = keluarmasuk;
     }
 
     public String getKeterangan() {

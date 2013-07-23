@@ -9,7 +9,6 @@ import com.kwa.cittajaya.exceptions.PreexistingEntityException;
 import com.kwa.core.GenericController;
 import com.kwa.core.KWAMesg;
 import com.kwa.core.Util;
-import java.util.Arrays;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -44,8 +43,15 @@ public class TtransbrgheaderJpaController extends GenericController {
         if (tklien == null) {
             return setError("Klien", "Entity is invalid");
         }
-        char[] io = {'I', 'O'};
-        if (!Arrays.asList(io).contains(ttransbrgheader.getInout())) {
+        
+                TpegawaiJpaController tpegawaip = new TpegawaiJpaController(getEmf(), getEm());
+        Tpegawai tpegawai = tpegawaip.findTpegawai(ttransbrgheader.getPegawai());
+        if (tpegawai == null) {
+            return setError("Pegawai", "Entity is invalid");
+        }
+        
+        String io = "IO";
+        if (io.contains(ttransbrgheader.getKeluarmasuk())) {
             return setError("Inout", "Entity is null or spaces");
         }
 
@@ -57,6 +63,7 @@ public class TtransbrgheaderJpaController extends GenericController {
         return setOK("Entry Created");
     }
 
+    @SuppressWarnings("empty-statement")
     public KWAMesg edit(Ttransbrgheader ttransbrgheader) throws NonexistentEntityException, Exception {
         checkConnection();
         setError("unknown", "unknownError");
@@ -78,8 +85,17 @@ public class TtransbrgheaderJpaController extends GenericController {
         if (tklien == null) {
             return setError("Klien", "Entity is invalid");
         }
-        char[] io = {'I', 'O'};
-        if (!Arrays.asList(io).contains(ttransbrgheader.getInout())) {
+        
+        
+                       TpegawaiJpaController tpegawaip = new TpegawaiJpaController(getEmf(), getEm());
+        Tpegawai tpegawai = tpegawaip.findTpegawai(ttransbrgheader.getPegawai());
+        if (tpegawai == null) {
+            return setError("Pegawai", "Entity is invalid");
+        }
+        
+        //char[] io;
+        String io = "IO";
+        if (io.contains(ttransbrgheader.getKeluarmasuk())) {
             return setError("Inout", "Entity is null or spaces");
         }
 

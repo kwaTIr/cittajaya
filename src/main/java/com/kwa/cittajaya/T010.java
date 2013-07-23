@@ -27,6 +27,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "T010.findByKode", query = "SELECT t FROM T010 t WHERE t.t010PK.kode = :kode"),
     @NamedQuery(name = "T010.findByDeksripsi", query = "SELECT t FROM T010 t WHERE t.deksripsi = :deksripsi")})
 public class T010 implements Serializable {
+    @Basic(optional = false)
+    @Column(name = "assocval")
+    private String assocval;
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected T010PK t010PK;
@@ -94,6 +97,14 @@ public class T010 implements Serializable {
     @Override
     public String toString() {
         return "com.kwa.cittajaya.T010[ t010PK=" + t010PK + " ]";
+    }
+
+    public String getAssocval() {
+        return assocval;
+    }
+
+    public void setAssocval(String assocval) {
+        this.assocval = assocval;
     }
     
 }

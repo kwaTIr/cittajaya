@@ -5,6 +5,9 @@
 package com.kwa.cittajaya;
 
 import com.kwa.cittajaya.exceptions.NonexistentEntityException;
+import com.kwa.cittajaya.exceptions.PreexistingEntityException;
+import com.kwa.core.GenericController;
+import com.kwa.core.KWAMesg;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -13,79 +16,38 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import org.apache.commons.lang.NumberUtils;
 
 /**
  *
  * @author arinegara
  */
-public class TkartustokJpaController implements Serializable {
+public class TkartustokJpaController extends GenericController {
 
-    public TkartustokJpaController(EntityManagerFactory emf) {
-        this.emf = emf;
-    }
-    private EntityManagerFactory emf = null;
-
-    public EntityManager getEntityManager() {
-        return emf.createEntityManager();
+    public TkartustokJpaController(EntityManagerFactory emf, EntityManager em) throws Exception {
+        super(emf, em);
     }
 
-    public void create(Tkartustok tkartustok) {
-        EntityManager em = null;
-        try {
-            em = getEntityManager();
-            em.getTransaction().begin();
-            em.persist(tkartustok);
-            em.getTransaction().commit();
-        } finally {
-            if (em != null) {
-                em.close();
-            }
+    public KWAMesg create(Tkartustok tkartustok) throws PreexistingEntityException, Exception {
+        checkConnection();
+        setError("unknown", "unknownError");
+        
+                TkatalogJpaController tkatalogp = new TkatalogJpaController(getEmf(), getEm());
+        Tkatalog tk = tkatalogp.findTkatalog( tkartustok.getKodekatalog());
+        if (tk == null) {
+            return setError("Katalog", "Entity is invalid");
         }
+        
+                 TtransbrgheaderJpaController tbhp = new TtransbrgheaderJpaController(getEmf(), getEm());
+        Ttransbrgheader tbh = tbhp.findTtransbrgheader( tkartustok.getKodetrans());
+        if (tbh == null) {
+            return setError("Transaksi", "Entity is invalid");
+        }       
+
+        getEm().persist(tkartustok);
+        return setOK("Entry Created");
     }
 
-    public void edit(Tkartustok tkartustok) throws NonexistentEntityException, Exception {
-        EntityManager em = null;
-        try {
-            em = getEntityManager();
-            em.getTransaction().begin();
-            tkartustok = em.merge(tkartustok);
-            em.getTransaction().commit();
-        } catch (Exception ex) {
-            String msg = ex.getLocalizedMessage();
-            if (msg == null || msg.length() == 0) {
-                Long id = tkartustok.getNourut();
-                if (findTkartustok(id) == null) {
-                    throw new NonexistentEntityException("The tkartustok with id " + id + " no longer exists.");
-                }
-            }
-            throw ex;
-        } finally {
-            if (em != null) {
-                em.close();
-            }
-        }
-    }
-
-    public void destroy(Long id) throws NonexistentEntityException {
-        EntityManager em = null;
-        try {
-            em = getEntityManager();
-            em.getTransaction().begin();
-            Tkartustok tkartustok;
-            try {
-                tkartustok = em.getReference(Tkartustok.class, id);
-                tkartustok.getNourut();
-            } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The tkartustok with id " + id + " no longer exists.", enfe);
-            }
-            em.remove(tkartustok);
-            em.getTransaction().commit();
-        } finally {
-            if (em != null) {
-                em.close();
-            }
-        }
-    }
 
     public List<Tkartustok> findTkartustokEntities() {
         return findTkartustokEntities(true, -1, -1);
@@ -96,41 +58,32 @@ public class TkartustokJpaController implements Serializable {
     }
 
     private List<Tkartustok> findTkartustokEntities(boolean all, int maxResults, int firstResult) {
-        EntityManager em = getEntityManager();
-        try {
-            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+
+            CriteriaQuery cq = getEm().getCriteriaBuilder().createQuery();
             cq.select(cq.from(Tkartustok.class));
-            Query q = em.createQuery(cq);
+            Query q = getEm().createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
                 q.setFirstResult(firstResult);
             }
             return q.getResultList();
-        } finally {
-            em.close();
-        }
+
     }
 
     public Tkartustok findTkartustok(Long id) {
-        EntityManager em = getEntityManager();
-        try {
-            return em.find(Tkartustok.class, id);
-        } finally {
-            em.close();
-        }
+
+            return getEm().find(Tkartustok.class, id);
+
     }
 
     public int getTkartustokCount() {
-        EntityManager em = getEntityManager();
-        try {
-            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+
+            CriteriaQuery cq = getEm().getCriteriaBuilder().createQuery();
             Root<Tkartustok> rt = cq.from(Tkartustok.class);
-            cq.select(em.getCriteriaBuilder().count(rt));
-            Query q = em.createQuery(cq);
+            cq.select(getEm().getCriteriaBuilder().count(rt));
+            Query q = getEm().createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
-        } finally {
-            em.close();
-        }
+
     }
     
 }
