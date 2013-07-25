@@ -33,12 +33,9 @@ public class test extends javax.swing.JFrame {
 
         jTable1.setModel(jTable1.getModel());
         jTable1.setColumnSelectionAllowed(true);
+        jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable1);
         jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jTable1.getColumnModel().getColumn(0).setHeaderValue("Title 1");
-        jTable1.getColumnModel().getColumn(1).setHeaderValue("Title 2");
-        jTable1.getColumnModel().getColumn(2).setHeaderValue("Title 3");
-        jTable1.getColumnModel().getColumn(3).setHeaderValue("Title 4");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
