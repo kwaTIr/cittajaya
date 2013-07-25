@@ -4,6 +4,8 @@
  */
 package com.kwa.cittajaya;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -12,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -27,6 +30,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Tpegawai.findByNama", query = "SELECT t FROM Tpegawai t WHERE t.nama = :nama"),
     @NamedQuery(name = "Tpegawai.findByStatus", query = "SELECT t FROM Tpegawai t WHERE t.status = :status")})
 public class Tpegawai implements Serializable {
+    @Transient
+    private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -57,7 +62,9 @@ public class Tpegawai implements Serializable {
     }
 
     public void setKode(String kode) {
+        String oldKode = this.kode;
         this.kode = kode;
+        changeSupport.firePropertyChange("kode", oldKode, kode);
     }
 
     public String getNama() {
@@ -65,7 +72,9 @@ public class Tpegawai implements Serializable {
     }
 
     public void setNama(String nama) {
+        String oldNama = this.nama;
         this.nama = nama;
+        changeSupport.firePropertyChange("nama", oldNama, nama);
     }
 
     public String getStatus() {
@@ -73,7 +82,9 @@ public class Tpegawai implements Serializable {
     }
 
     public void setStatus(String status) {
+        String oldStatus = this.status;
         this.status = status;
+        changeSupport.firePropertyChange("status", oldStatus, status);
     }
 
     @Override
@@ -99,6 +110,14 @@ public class Tpegawai implements Serializable {
     @Override
     public String toString() {
         return "com.kwa.cittajaya.Tpegawai[ kode=" + kode + " ]";
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.removePropertyChangeListener(listener);
     }
     
 }

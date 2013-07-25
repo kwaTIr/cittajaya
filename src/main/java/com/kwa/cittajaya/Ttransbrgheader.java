@@ -4,6 +4,8 @@
  */
 package com.kwa.cittajaya;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -12,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -30,6 +33,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Ttransbrgheader.findByKeluarmasuk", query = "SELECT t FROM Ttransbrgheader t WHERE t.keluarmasuk = :keluarmasuk"),
     @NamedQuery(name = "Ttransbrgheader.findByKeterangan", query = "SELECT t FROM Ttransbrgheader t WHERE t.keterangan = :keterangan")})
 public class Ttransbrgheader implements Serializable {
+    @Transient
+    private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -72,7 +77,9 @@ public class Ttransbrgheader implements Serializable {
     }
 
     public void setKode(String kode) {
+        String oldKode = this.kode;
         this.kode = kode;
+        changeSupport.firePropertyChange("kode", oldKode, kode);
     }
 
     public String getTanggal() {
@@ -80,7 +87,9 @@ public class Ttransbrgheader implements Serializable {
     }
 
     public void setTanggal(String tanggal) {
+        String oldTanggal = this.tanggal;
         this.tanggal = tanggal;
+        changeSupport.firePropertyChange("tanggal", oldTanggal, tanggal);
     }
 
     public String getKlien() {
@@ -88,7 +97,9 @@ public class Ttransbrgheader implements Serializable {
     }
 
     public void setKlien(String klien) {
+        String oldKlien = this.klien;
         this.klien = klien;
+        changeSupport.firePropertyChange("klien", oldKlien, klien);
     }
 
     public String getPegawai() {
@@ -96,7 +107,9 @@ public class Ttransbrgheader implements Serializable {
     }
 
     public void setPegawai(String pegawai) {
+        String oldPegawai = this.pegawai;
         this.pegawai = pegawai;
+        changeSupport.firePropertyChange("pegawai", oldPegawai, pegawai);
     }
 
     public String getKeluarmasuk() {
@@ -104,7 +117,9 @@ public class Ttransbrgheader implements Serializable {
     }
 
     public void setKeluarmasuk(String keluarmasuk) {
+        String oldKeluarmasuk = this.keluarmasuk;
         this.keluarmasuk = keluarmasuk;
+        changeSupport.firePropertyChange("keluarmasuk", oldKeluarmasuk, keluarmasuk);
     }
 
     public String getKeterangan() {
@@ -112,7 +127,9 @@ public class Ttransbrgheader implements Serializable {
     }
 
     public void setKeterangan(String keterangan) {
+        String oldKeterangan = this.keterangan;
         this.keterangan = keterangan;
+        changeSupport.firePropertyChange("keterangan", oldKeterangan, keterangan);
     }
 
     @Override
@@ -138,6 +155,14 @@ public class Ttransbrgheader implements Serializable {
     @Override
     public String toString() {
         return "com.kwa.cittajaya.Ttransbrgheader[ kode=" + kode + " ]";
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.removePropertyChangeListener(listener);
     }
     
 }

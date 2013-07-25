@@ -52,6 +52,10 @@ public  class GenericController implements Serializable{
     public void setEm(EntityManager em) {
         this.em = em;
     }
+    
+    public GenericController(){
+        checkConnection();
+    }
        
     public GenericController(EntityManagerFactory emf, EntityManager em){
      
