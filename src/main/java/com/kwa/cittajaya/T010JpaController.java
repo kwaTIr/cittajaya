@@ -158,6 +158,14 @@ public class T010JpaController extends GenericController {
         return findT010(id);
 
     }
+    
+    public List<T010> findT010Kode(String tipe){
+                checkConnection();
+
+        Query q = getEm().createNamedQuery("T010.findByTipe").setParameter("tipe", tipe);
+
+        return q.getResultList();
+    }
 
     public int getT010Count() {
         checkConnection();

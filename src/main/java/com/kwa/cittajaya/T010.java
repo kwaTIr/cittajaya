@@ -4,6 +4,8 @@
  */
 package com.kwa.cittajaya;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -12,6 +14,7 @@ import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -27,6 +30,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "T010.findByKode", query = "SELECT t FROM T010 t WHERE t.t010PK.kode = :kode"),
     @NamedQuery(name = "T010.findByDeksripsi", query = "SELECT t FROM T010 t WHERE t.deksripsi = :deksripsi")})
 public class T010 implements Serializable {
+    @Transient
+    private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
     @Basic(optional = false)
     @Column(name = "assocval")
     private String assocval;
@@ -71,7 +76,9 @@ public class T010 implements Serializable {
     }
 
     public void setDeksripsi(String deksripsi) {
+        String oldDeksripsi = this.deksripsi;
         this.deksripsi = deksripsi;
+        changeSupport.firePropertyChange("deksripsi", oldDeksripsi, deksripsi);
     }
 
     @Override
@@ -104,7 +111,17 @@ public class T010 implements Serializable {
     }
 
     public void setAssocval(String assocval) {
+        String oldAssocval = this.assocval;
         this.assocval = assocval;
+        changeSupport.firePropertyChange("assocval", oldAssocval, assocval);
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.removePropertyChangeListener(listener);
     }
     
 }
