@@ -15,7 +15,7 @@ import javax.swing.table.AbstractTableModel;
  */
 public class modelPegawai extends AbstractTableModel {
     
-    private String[] columnNames = {"Kode Pegawai","Nama", "Status"};
+    private String[] columnNames = {"Kode","Nama", "Status"};
     private List<Tpegawai> data ;
     private TpegawaiJpaController pegp;
     
@@ -27,6 +27,9 @@ public class modelPegawai extends AbstractTableModel {
         data = pegp.findTpegawaiEntities();
     }
     
+    public List<Tpegawai> getData(){
+        return data;
+    }
     public int getRowCount() {
         if(data==null) return 0;
         return data.size();

@@ -9,6 +9,8 @@ import com.kwa.cittajaya.Tpegawai;
 import com.kwa.cittajaya.TpegawaiJpaController;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableModel;
 import org.eclipse.persistence.descriptors.TimestampLockingPolicy;
 
@@ -26,23 +28,24 @@ public class VPegawai extends javax.swing.JPanel {
         initValues();
     }
 
-    private void initValues(){
+    private void initValues() {
         try {
-            pegp = new TpegawaiJpaController(null,null);
+            pegp = new TpegawaiJpaController(null, null);
             modelPegawai mp = new modelPegawai(pegp);
             mp.searchAll();
             tabPegawai.setModel(mp);
-            
-            T010JpaController t010p = new T010JpaController(pegp.getEmf(),pegp.getEm());
-            T010CBModel t010cbmodel = new T010CBModel(t010p,"TSPG","","");
+
+            list = mp.getData();
+
+            T010JpaController t010p = new T010JpaController(pegp.getEmf(), pegp.getEm());
+            T010CBModel t010cbmodel = new T010CBModel(t010p, "TSPG", "", "");
             cbStatus.setModel(t010cbmodel);
-            cbStatus.setRenderer(new T010CBRender(t010p,"TSPG"));
-            
+            cbStatus.setRenderer(new T010CBRender(t010p, "TSPG"));
+
         } catch (Exception ex) {
             Logger.getLogger(VPegawai.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -70,6 +73,8 @@ public class VPegawai extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         cbStatus = new javax.swing.JComboBox();
 
+        tabPegawai.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tabPegawai.getSelectionModel().addListSelectionListener(new RowListener());
         tabPegawai.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tabPegawai);
 
@@ -153,7 +158,6 @@ public class VPegawai extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnNew;
@@ -172,7 +176,22 @@ public class VPegawai extends javax.swing.JPanel {
     private javax.swing.JTextField txtKode;
     private javax.swing.JTextField txtNama;
     // End of variables declaration//GEN-END:variables
-
     private Tpegawai peg;
     private TpegawaiJpaController pegp;
+    private java.util.List<com.kwa.cittajaya.Tpegawai> list;
+
+    private class RowListener implements ListSelectionListener {
+        public void valueChanged(ListSelectionEvent event) {
+            if (event.getValueIsAdjusting()) {
+                return;
+            }
+            tabPegawai.getSelectedRow();
+            modelPegawai modelpeg = (modelPegawai) tabPegawai.getModel();
+            peg =  modelpeg.getData().get(tabPegawai.getSelectedRow());
+            txtKode.setText(peg.getKode());
+            txtNama.setText(peg.getNama());
+            cbStatus.setSelectedItem(peg.getStatus());
+        }
+    }
+
 }

@@ -63,6 +63,10 @@ package com.kwa.cj.views;
             readRow = rar;  
             table = readRow.table;  
         }  
+
+    RowListener() {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
        
         public void valueChanged(ListSelectionEvent e)  
         {  
