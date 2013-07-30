@@ -84,6 +84,11 @@ public class VPegawai extends javax.swing.JPanel {
         btnNew.setFocusable(false);
         btnNew.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnNew.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                doNew(evt);
+            }
+        });
         jToolBar1.add(btnNew);
         jToolBar1.add(jSeparator1);
 
@@ -91,6 +96,11 @@ public class VPegawai extends javax.swing.JPanel {
         btnSave.setFocusable(false);
         btnSave.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnSave.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                doSave(evt);
+            }
+        });
         jToolBar1.add(btnSave);
         jToolBar1.add(jSeparator2);
 
@@ -136,7 +146,7 @@ public class VPegawai extends javax.swing.JPanel {
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,6 +168,18 @@ public class VPegawai extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void doNew(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doNew
+        txtKode.setText("");
+        txtNama.setText("");
+        cbStatus.setSelectedItem("A");
+    }//GEN-LAST:event_doNew
+
+    private void doSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doSave
+        peg = new Tpegawai(txtKode.getText().trim(),txtNama.getText().trim(), (String) cbStatus.getSelectedItem());
+        
+    }//GEN-LAST:event_doSave
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnNew;
