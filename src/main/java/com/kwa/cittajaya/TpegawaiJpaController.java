@@ -36,7 +36,9 @@ public class TpegawaiJpaController extends GenericController {
         if (Util.isNullOrSpaces(tpegawai.getNama())) {
             return setError("Nama", "Entity is null or spaces");
         }
-
+if(findTpegawai(tpegawai.getKode())!=null){
+        return setError("Kode", "Entity already exist");
+}
         T010JpaController t010p = new T010JpaController(getEmf(), getEm());
         T010 t010 = t010p.findT010("TSPG", tpegawai.getStatus());
         if (t010 == null) {
@@ -72,7 +74,9 @@ public class TpegawaiJpaController extends GenericController {
 
         checkConnection();
         setError("unknown", "unknownError");
-
+if(findTpegawai(id)==null){
+        return setError("Kode", "Entity doesn't exist");
+}
         if (id == null) {
             return setError("kode", "Entity is null or spaces");
         }

@@ -20,12 +20,12 @@ import org.eclipse.persistence.descriptors.TimestampLockingPolicy;
  *
  * @author arinegara
  */
-public class VPegawai extends javax.swing.JPanel {
+public class VKatalog extends javax.swing.JPanel {
 
     /**
      * Creates new form VPegawai
      */
-    public VPegawai() {
+    public VKatalog() {
         initComponents();
         initValues();
     }
@@ -55,11 +55,11 @@ public class VPegawai extends javax.swing.JPanel {
 
             T010JpaController t010p = new T010JpaController(pegp.getEmf(), pegp.getEm());
             T010CBModel t010cbmodel = new T010CBModel(t010p, "TSPG", "", "");
-            cbStatus.setModel(t010cbmodel);
-            cbStatus.setRenderer(new T010CBRender(t010p, "TSPG"));
+            cbMerk.setModel(t010cbmodel);
+            cbMerk.setRenderer(new T010CBRender(t010p, "TSPG"));
 
         } catch (Exception ex) {
-            Logger.getLogger(VPegawai.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(VKatalog.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -85,9 +85,15 @@ public class VPegawai extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         txtKode = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        txtNama = new javax.swing.JTextField();
+        txtArtikel = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        cbStatus = new javax.swing.JComboBox();
+        cbMerk = new javax.swing.JComboBox();
+        cbTipe = new javax.swing.JComboBox();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        txtUkuran = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        txtWarna = new javax.swing.JTextField();
 
         tabPegawai.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tabPegawai.getSelectionModel().addListSelectionListener(new RowListener());
@@ -140,9 +146,21 @@ public class VPegawai extends javax.swing.JPanel {
 
         jLabel1.setText("Kode :");
 
-        jLabel2.setText("Nama :");
+        jLabel2.setText("Artikel :");
 
-        jLabel3.setText("Status :");
+        jLabel3.setText("Merk :");
+
+        jLabel4.setText("Tipe :");
+
+        jLabel5.setText("Ukuran :");
+
+        jLabel6.setText("Warna :");
+
+        txtWarna.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtWarnaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -154,50 +172,76 @@ public class VPegawai extends javax.swing.JPanel {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtKode, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel5)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtUkuran, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel6)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtWarna, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cbMerk, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbTipe, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtArtikel, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1)
-                    .addComponent(txtKode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2)
-                    .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtKode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(cbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbMerk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtArtikel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtUkuran, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtWarna, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(cbTipe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void doNew(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doNew
         txtKode.setText("");
-        txtNama.setText("");
-        cbStatus.setSelectedItem("A");
+        txtArtikel.setText("");
+        cbMerk.setSelectedItem("A");
     }//GEN-LAST:event_doNew
 
     private void doSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doSave
-        peg = new Tpegawai(txtKode.getText().trim(),txtNama.getText().trim(), (String) cbStatus.getSelectedItem());
+        peg = new Tpegawai(txtKode.getText().trim(),txtArtikel.getText().trim(), (String) cbMerk.getSelectedItem());
         // pegp.commitTrx();
         try{
            
@@ -220,7 +264,7 @@ public class VPegawai extends javax.swing.JPanel {
     }//GEN-LAST:event_doSave
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        peg = new Tpegawai(txtKode.getText().trim(),txtNama.getText().trim(), (String) cbStatus.getSelectedItem());
+        peg = new Tpegawai(txtKode.getText().trim(),txtArtikel.getText().trim(), (String) cbMerk.getSelectedItem());
                try{
         pegp = new TpegawaiJpaController(null,null);
             KWAMesg msg;
@@ -236,23 +280,33 @@ public class VPegawai extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
+    private void txtWarnaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtWarnaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtWarnaActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnNew;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSearch;
-    private javax.swing.JComboBox cbStatus;
+    private javax.swing.JComboBox cbMerk;
+    private javax.swing.JComboBox cbTipe;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JTable tabPegawai;
+    private javax.swing.JTextField txtArtikel;
     private javax.swing.JTextField txtKode;
-    private javax.swing.JTextField txtNama;
+    private javax.swing.JTextField txtUkuran;
+    private javax.swing.JTextField txtWarna;
     // End of variables declaration//GEN-END:variables
     private Tpegawai peg;
     private TpegawaiJpaController pegp;
@@ -268,8 +322,8 @@ public class VPegawai extends javax.swing.JPanel {
             modelPegawai modelpeg = (modelPegawai) tabPegawai.getModel();
             peg =  modelpeg.getData().get(tabPegawai.getSelectedRow());
             txtKode.setText(peg.getKode());
-            txtNama.setText(peg.getNama());
-            cbStatus.setSelectedItem(peg.getStatus());
+            txtArtikel.setText(peg.getNama());
+            cbMerk.setSelectedItem(peg.getStatus());
         }
     }
 
