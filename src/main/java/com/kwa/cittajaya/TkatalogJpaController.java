@@ -52,24 +52,25 @@ public class TkatalogJpaController extends GenericController {
         }
         longdesc = longdesc + " " + tkatalog.getArtikel();
 
+                if (Util.isNullOrSpaces(tkatalog.getUkuran())) {
+            return setError("Ukuran", "Entity is null or spaces");
+        }
+        longdesc = longdesc + " " + tkatalog.getUkuran();
+
         if (Util.isNullOrSpaces(tkatalog.getWarna())) {
             return setError("Warna", "Entity is null or spaces");
         }
         longdesc = longdesc + " " + tkatalog.getWarna();
 
-        if (Util.isNullOrSpaces(tkatalog.getUkuran())) {
-            return setError("Ukuran", "Entity is null or spaces");
-        }
-        longdesc = longdesc + " " + tkatalog.getUkuran();
 
         if (Util.isNullOrSpaces(tkatalog.getTipe())) {
             return setError("Tipe", "Entity is null or spaces");
         }
-        t010 = t010p.findT010("TKAT", tkatalog.getTipe());
+        t010 = t010p.findT010("TKT", tkatalog.getTipe());
         if (t010 == null) {
             return setError("Tipe", "Entity is invalid");
         }
-
+longdesc = longdesc + " " + t010.getDeksripsi();
         tkatalog.setLongdesc(longdesc);
 
         getEm().persist(tkatalog);
@@ -105,24 +106,25 @@ public class TkatalogJpaController extends GenericController {
         }
         longdesc = longdesc + " " + tkatalog.getArtikel();
 
+                if (Util.isNullOrSpaces(tkatalog.getUkuran())) {
+            return setError("Ukuran", "Entity is null or spaces");
+        }
+        longdesc = longdesc + " " + tkatalog.getUkuran();
+
         if (Util.isNullOrSpaces(tkatalog.getWarna())) {
             return setError("Warna", "Entity is null or spaces");
         }
         longdesc = longdesc + " " + tkatalog.getWarna();
 
-        if (Util.isNullOrSpaces(tkatalog.getUkuran())) {
-            return setError("Ukuran", "Entity is null or spaces");
-        }
-        longdesc = longdesc + " " + tkatalog.getUkuran();
 
         if (Util.isNullOrSpaces(tkatalog.getTipe())) {
             return setError("Tipe", "Entity is null or spaces");
         }
-        t010 = t010p.findT010("TKAT", tkatalog.getTipe());
+        t010 = t010p.findT010("TKT", tkatalog.getTipe());
         if (t010 == null) {
             return setError("Tipe", "Entity is invalid");
         }
-
+longdesc = longdesc + " " + t010.getDeksripsi();
         tkatalog.setLongdesc(longdesc);
 
         getEm().merge(tkatalog);

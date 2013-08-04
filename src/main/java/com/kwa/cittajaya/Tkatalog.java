@@ -62,7 +62,7 @@ public class Tkatalog implements Serializable {
         this.kode = kode;
     }
 
-    public Tkatalog(String kode, String merk, String artikel, String warna, String ukuran, String longdesc, String tipe) {
+    public Tkatalog(String kode, String merk, String artikel,  String ukuran, String warna, String tipe , String longdesc ) {
         this.kode = kode;
         this.merk = merk;
         this.artikel = artikel;

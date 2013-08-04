@@ -5,8 +5,8 @@
 package com.kwa.cj.views;
 
 import com.kwa.cittajaya.T010JpaController;
-import com.kwa.cittajaya.Tpegawai;
-import com.kwa.cittajaya.TpegawaiJpaController;
+import com.kwa.cittajaya.Tkatalog;
+import com.kwa.cittajaya.TkatalogJpaController;
 import com.kwa.core.KWAMesg;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,7 +23,7 @@ import org.eclipse.persistence.descriptors.TimestampLockingPolicy;
 public class VKatalog extends javax.swing.JPanel {
 
     /**
-     * Creates new form VPegawai
+     * Creates new form VKatalog
      */
     public VKatalog() {
         initComponents();
@@ -31,21 +31,21 @@ public class VKatalog extends javax.swing.JPanel {
     }
 
     private void initTab() throws Exception{
-                   pegp = new TpegawaiJpaController(null, null);
-            modelPegawai mp = new modelPegawai(pegp);
+                   katalogp = new TkatalogJpaController(null, null);
+            modelKatalog mp = new modelKatalog(katalogp);
             mp.searchAll();
-              tabPegawai = new javax.swing.JTable();
+              tabKatalog = new javax.swing.JTable();
             list = mp.getData();
-            tabPegawai.setModel(mp); 
+            tabKatalog.setModel(mp); 
             
 
             
    
           
-                  tabPegawai.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tabPegawai.getSelectionModel().addListSelectionListener(new RowListener());
-        tabPegawai.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tabPegawai);
+                  tabKatalog.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tabKatalog.getSelectionModel().addListSelectionListener(new RowListener());
+        tabKatalog.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tabKatalog);
        
     }
     private void initValues() {
@@ -53,11 +53,17 @@ public class VKatalog extends javax.swing.JPanel {
             initTab();
 
 
-            T010JpaController t010p = new T010JpaController(pegp.getEmf(), pegp.getEm());
-            T010CBModel t010cbmodel = new T010CBModel(t010p, "TSPG", "", "");
+            T010JpaController t010p = new T010JpaController(katalogp.getEmf(), katalogp.getEm());
+            T010CBModel t010cbmodel = new T010CBModel(t010p, "TKMR", "", "");
             cbMerk.setModel(t010cbmodel);
-            cbMerk.setRenderer(new T010CBRender(t010p, "TSPG"));
+            cbMerk.setRenderer(new T010CBRender(t010p, "TKMR"));
 
+            
+            t010cbmodel = new T010CBModel(t010p, "TKT", "", "");
+            cbTipe.setModel(t010cbmodel);
+            cbTipe.setRenderer(new T010CBRender(t010p, "TKT"));
+
+            
         } catch (Exception ex) {
             Logger.getLogger(VKatalog.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -73,7 +79,7 @@ public class VKatalog extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabPegawai = new javax.swing.JTable();
+        tabKatalog = new javax.swing.JTable();
         jToolBar1 = new javax.swing.JToolBar();
         btnNew = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
@@ -95,10 +101,10 @@ public class VKatalog extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         txtWarna = new javax.swing.JTextField();
 
-        tabPegawai.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tabPegawai.getSelectionModel().addListSelectionListener(new RowListener());
-        tabPegawai.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tabPegawai);
+        tabKatalog.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tabKatalog.getSelectionModel().addListSelectionListener(new RowListener());
+        tabKatalog.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tabKatalog);
 
         jToolBar1.setRollover(true);
 
@@ -236,26 +242,31 @@ public class VKatalog extends javax.swing.JPanel {
 
     private void doNew(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doNew
         txtKode.setText("");
+        cbMerk.setSelectedIndex(0);
         txtArtikel.setText("");
-        cbMerk.setSelectedItem("A");
+        txtUkuran.setText("");
+        txtWarna.setText("");
+        cbMerk.setSelectedItem("N");
+        
+        
     }//GEN-LAST:event_doNew
 
     private void doSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doSave
-        peg = new Tpegawai(txtKode.getText().trim(),txtArtikel.getText().trim(), (String) cbMerk.getSelectedItem());
+        katalog = new Tkatalog(txtKode.getText().trim(),(String) cbMerk.getSelectedItem(), txtArtikel.getText().trim(), txtUkuran.getText().trim(), txtWarna.getText(),(String) cbTipe.getSelectedItem(),null);
         // pegp.commitTrx();
         try{
            
-            pegp = new TpegawaiJpaController(null,null);
+            katalogp = new TkatalogJpaController(null,null);
             KWAMesg msg;
-            pegp.initTrx();
-            if(pegp.findTpegawai(txtKode.getText())==null){
-                msg = pegp.create(peg);
+            katalogp.initTrx();
+            if(katalogp.findTkatalog(txtKode.getText())==null){
+                msg = katalogp.create(katalog);
                 JOptionPane.showMessageDialog(null, msg.getMesg(),"Create",1);
             }else{
-                msg = pegp.edit(peg);
+                msg = katalogp.edit(katalog);
                 JOptionPane.showMessageDialog(null, msg.getMesg(),"Modify",1);
             }
-            pegp.commitTrx();
+            katalogp.commitTrx();
             initTab();
             
         }catch(Exception e){
@@ -264,14 +275,14 @@ public class VKatalog extends javax.swing.JPanel {
     }//GEN-LAST:event_doSave
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        peg = new Tpegawai(txtKode.getText().trim(),txtArtikel.getText().trim(), (String) cbMerk.getSelectedItem());
+        katalog = new Tkatalog(txtKode.getText().trim(),(String) cbMerk.getSelectedItem(), txtArtikel.getText().trim(), txtUkuran.getText().trim(), txtWarna.getText(),(String) cbTipe.getSelectedItem(),null);
                try{
-        pegp = new TpegawaiJpaController(null,null);
+        katalogp = new TkatalogJpaController(null,null);
             KWAMesg msg;
-            pegp.initTrx();
+            katalogp.initTrx();
             
-            msg = pegp.destroy(peg.getKode());
- pegp.commitTrx();
+            msg = katalogp.destroy(katalog.getKode());
+ katalogp.commitTrx();
                 JOptionPane.showMessageDialog(null, msg.getMesg(),"Delete",1);
                 initTab();
 
@@ -302,15 +313,15 @@ public class VKatalog extends javax.swing.JPanel {
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JToolBar jToolBar1;
-    private javax.swing.JTable tabPegawai;
+    private javax.swing.JTable tabKatalog;
     private javax.swing.JTextField txtArtikel;
     private javax.swing.JTextField txtKode;
     private javax.swing.JTextField txtUkuran;
     private javax.swing.JTextField txtWarna;
     // End of variables declaration//GEN-END:variables
-    private Tpegawai peg;
-    private TpegawaiJpaController pegp;
-    private java.util.List<com.kwa.cittajaya.Tpegawai> list;
+    private Tkatalog katalog;
+    private TkatalogJpaController katalogp;
+    private java.util.List<com.kwa.cittajaya.Tkatalog> list;
 
     private class RowListener implements ListSelectionListener {
         
@@ -318,12 +329,16 @@ public class VKatalog extends javax.swing.JPanel {
             if (event.getValueIsAdjusting()) {
                 return;
             }
-            tabPegawai.getSelectedRow();
-            modelPegawai modelpeg = (modelPegawai) tabPegawai.getModel();
-            peg =  modelpeg.getData().get(tabPegawai.getSelectedRow());
-            txtKode.setText(peg.getKode());
-            txtArtikel.setText(peg.getNama());
-            cbMerk.setSelectedItem(peg.getStatus());
+            tabKatalog.getSelectedRow();
+            modelKatalog modelpeg = (modelKatalog) tabKatalog.getModel();
+            katalog =  modelpeg.getData().get(tabKatalog.getSelectedRow());
+            txtKode.setText(katalog.getKode());
+         cbMerk.setSelectedItem(katalog.getMerk());
+            txtArtikel.setText(katalog.getArtikel());
+            txtUkuran.setText(katalog.getUkuran());
+            txtWarna.setText(katalog.getWarna());
+            cbTipe.setSelectedItem(katalog.getTipe());
+            
         }
     }
 
