@@ -11,6 +11,8 @@
     <class>com.kwa.cittajaya.Test2</class>
     <class>com.kwa.cittajaya.Test1</class>
     <class>com.kwa.cittajaya.Tpegawai</class>
+    <class>com.kwa.cittajaya.Tkodegenerator</class>
+    <class>com.kwa.cittajaya.Tklienhistory</class>
     <shared-cache-mode>NONE</shared-cache-mode>
     <validation-mode>NONE</validation-mode>
     <properties>

@@ -39,7 +39,7 @@ CREATE TABLE `t010` (
 
 LOCK TABLES `t010` WRITE;
 /*!40000 ALTER TABLE `t010` DISABLE KEYS */;
-INSERT INTO `t010` VALUES ('TSPG','A','Aktif',' '),('TSPG','N','Non Aktif',' ');
+INSERT INTO `t010` VALUES ('TKMR','A','ANDO',' '),('TKMR','O','Lain2',' '),('TKMR','S','Santica',' '),('TKOT','DPS','Denpasar',' '),('TKOT','NGR','Negara',' '),('TKOT','SGRJ','Singaraja',' '),('TKT','B','BS',' '),('TKT','N','Normal',' '),('TSPG','A','Aktif',' '),('TSPG','N','Non Aktif',' ');
 /*!40000 ALTER TABLE `t010` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -80,12 +80,12 @@ DROP TABLE IF EXISTS `tkatalog`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tkatalog` (
   `kode` varchar(4) NOT NULL,
+  `merk` varchar(4) NOT NULL COMMENT 'TKMR',
   `artikel` varchar(20) NOT NULL,
-  `longdesc` varchar(50) NOT NULL,
-  `merk` varchar(4) NOT NULL,
-  `tipe` varchar(4) NOT NULL,
   `ukuran` varchar(10) NOT NULL,
   `warna` varchar(10) NOT NULL,
+  `tipe` varchar(4) NOT NULL COMMENT 'TKT',
+  `longdesc` varchar(50) NOT NULL,
   PRIMARY KEY (`kode`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -96,6 +96,7 @@ CREATE TABLE `tkatalog` (
 
 LOCK TABLES `tkatalog` WRITE;
 /*!40000 ALTER TABLE `tkatalog` DISABLE KEYS */;
+INSERT INTO `tkatalog` VALUES ('kode','A','a','s-2vd','x/x','N','ANDO a s-2vd x/x Normal'),('kodx','O','a','s-2','x/x','N','Lain2 a s-2 x/x Normal');
 /*!40000 ALTER TABLE `tkatalog` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -124,7 +125,61 @@ CREATE TABLE `tklien` (
 
 LOCK TABLES `tklien` WRITE;
 /*!40000 ALTER TABLE `tklien` DISABLE KEYS */;
+INSERT INTO `tklien` VALUES ('ca1','csa','csac','DPS','csa','csa','csacsa');
 /*!40000 ALTER TABLE `tklien` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tklienhistory`
+--
+
+DROP TABLE IF EXISTS `tklienhistory`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tklienhistory` (
+  `klien` varchar(4) NOT NULL,
+  `katalog` varchar(4) NOT NULL,
+  `nomer` varchar(4) NOT NULL,
+  `tanggal` varchar(6) NOT NULL COMMENT 'YYMMDD',
+  `harga` double NOT NULL,
+  `discount` varchar(20) NOT NULL,
+  `satuan` varchar(4) NOT NULL,
+  PRIMARY KEY (`klien`,`katalog`,`nomer`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tklienhistory`
+--
+
+LOCK TABLES `tklienhistory` WRITE;
+/*!40000 ALTER TABLE `tklienhistory` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tklienhistory` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tkodegenerator`
+--
+
+DROP TABLE IF EXISTS `tkodegenerator`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tkodegenerator` (
+  `tipe` varchar(4) NOT NULL,
+  `kode` varchar(8) NOT NULL,
+  `last` int(10) unsigned zerofill NOT NULL,
+  PRIMARY KEY (`tipe`,`kode`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tkodegenerator`
+--
+
+LOCK TABLES `tkodegenerator` WRITE;
+/*!40000 ALTER TABLE `tkodegenerator` DISABLE KEYS */;
+INSERT INTO `tkodegenerator` VALUES ('TKHX','CCCCBBBB',0000000011);
+/*!40000 ALTER TABLE `tkodegenerator` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -164,7 +219,7 @@ CREATE TABLE `ttransbrgheader` (
   `tanggal` varchar(6) NOT NULL COMMENT 'YYMMDD',
   `klien` varchar(4) NOT NULL COMMENT 'tklien',
   `pegawai` varchar(4) NOT NULL,
-  `keluarmasuk` varchar(1) NOT NULL COMMENT 'I  : Masuk (Menambah SOH)\\\\\\\\nO : Keluar (mengurangi SOH)',
+  `keluarmasuk` varchar(4) NOT NULL COMMENT 'keluar masuk tergantung assoc val di t010:TTBH\\n- pembelian : TBHI --> menambah barang\\n- penjualan : TBHO --> mengurangi\\n- retur dr customer : TBHX --> menambah\\n- retur ke pabrik : TBHY --> mengurangi\\n',
   `keterangan` varchar(255) NOT NULL,
   PRIMARY KEY (`kode`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='transaksi barang header';
@@ -216,4 +271,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-08-03  2:28:24
+-- Dump completed on 2013-08-05  6:04:24

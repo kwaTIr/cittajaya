@@ -21,7 +21,8 @@ public class App
             f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
             
             //JPanel p = new VPegawai();
-            JPanel p = new VKatalog();
+            //JPanel p = new VKatalog();
+            JPanel p = new VKlien();
             f.getContentPane().add(p);  
             f.setSize(p.getPreferredSize());  
             f.setLocationRelativeTo(null);;  

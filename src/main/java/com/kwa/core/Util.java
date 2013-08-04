@@ -36,6 +36,11 @@ public class Util {
         }
     }
 
+    public static String dateToStr(Date dt, String strFormat){
+        return new SimpleDateFormat(strFormat).format(dt);
+
+    }
+    
     public static boolean isDateValid(String str, String strFormat) {
         if (isNullOrSpaces(str)) {
             return false;

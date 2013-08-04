@@ -246,7 +246,7 @@ public class VKatalog extends javax.swing.JPanel {
         txtArtikel.setText("");
         txtUkuran.setText("");
         txtWarna.setText("");
-        cbMerk.setSelectedItem("N");
+        cbTipe.setSelectedItem("N");
         
         
     }//GEN-LAST:event_doNew

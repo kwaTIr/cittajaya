@@ -13,7 +13,16 @@ public class App
 {
     public static void main( String[] args )
     {
-        try {
+        try{
+        Tkodegenerator tkg = new Tkodegenerator("TKHX","CCCCBBBB");
+        TkodegeneratorJpaController tkgp = new TkodegeneratorJpaController(null,null);
+        tkgp.initTrx();
+   
+        System.out.println(tkgp.getNumber(tkg));
+        tkgp.commitTrx();
+        
+        /*
+        Tkodetry {
             String[] VALUES = new String[] {"AB","BC","CD","AE"};
             if(Arrays.asList(VALUES).contains("AB")){
                  System.out.println("xRusak");
@@ -24,8 +33,10 @@ public class App
         if (io.contains("X")) {
             System.out.println("Rusak");
         }
-        
- /*           T010 t010 = new T010("TMRK","ANDO1","test");
+       */ 
+ /*          
+  * 
+  * T010 t010 = new T010("TMRK","ANDO1","test");
             T010JpaController t010p = new T010JpaController(null,null);
             t010p.initTrx();
             t010p.create(t010);
@@ -38,4 +49,6 @@ public class App
             ex.printStackTrace();
         }
     }
+
+
 }
