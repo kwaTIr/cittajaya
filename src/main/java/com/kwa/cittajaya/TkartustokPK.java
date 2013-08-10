@@ -8,38 +8,34 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Transient;
 
 /**
  *
- * @author arinegara
+ * @author scumb46
  */
 @Embeddable
-public class TtransbrgitemPK implements Serializable {
+public class TkartustokPK implements Serializable {
     @Basic(optional = false)
-    @Column(name = "kode")
-    private String kode;
+    @Column(name = "nourut")
+    private long nourut;
     @Basic(optional = false)
     @Column(name = "kodekatalog")
     private String kodekatalog;
-    @Transient(name = "katalogdesc")
-    private String katalogdesc;
-    
 
-    public TtransbrgitemPK() {
+    public TkartustokPK() {
     }
 
-    public TtransbrgitemPK(String kode, String kodekatalog) {
-        this.kode = kode;
+    public TkartustokPK(long nourut, String kodekatalog) {
+        this.nourut = nourut;
         this.kodekatalog = kodekatalog;
     }
 
-    public String getKode() {
-        return kode;
+    public long getNourut() {
+        return nourut;
     }
 
-    public void setKode(String kode) {
-        this.kode = kode;
+    public void setNourut(long nourut) {
+        this.nourut = nourut;
     }
 
     public String getKodekatalog() {
@@ -53,7 +49,7 @@ public class TtransbrgitemPK implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (kode != null ? kode.hashCode() : 0);
+        hash += (int) nourut;
         hash += (kodekatalog != null ? kodekatalog.hashCode() : 0);
         return hash;
     }
@@ -61,11 +57,11 @@ public class TtransbrgitemPK implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof TtransbrgitemPK)) {
+        if (!(object instanceof TkartustokPK)) {
             return false;
         }
-        TtransbrgitemPK other = (TtransbrgitemPK) object;
-        if ((this.kode == null && other.kode != null) || (this.kode != null && !this.kode.equals(other.kode))) {
+        TkartustokPK other = (TkartustokPK) object;
+        if (this.nourut != other.nourut) {
             return false;
         }
         if ((this.kodekatalog == null && other.kodekatalog != null) || (this.kodekatalog != null && !this.kodekatalog.equals(other.kodekatalog))) {
@@ -76,7 +72,7 @@ public class TtransbrgitemPK implements Serializable {
 
     @Override
     public String toString() {
-        return "com.kwa.cittajaya.TtransbrgitemPK[ kode=" + kode + ", kodekatalog=" + kodekatalog + " ]";
+        return "com.kwa.cittajaya.TkartustokPK[ nourut=" + nourut + ", kodekatalog=" + kodekatalog + " ]";
     }
     
 }

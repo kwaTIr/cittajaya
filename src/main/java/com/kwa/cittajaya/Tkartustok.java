@@ -7,10 +7,8 @@ package com.kwa.cittajaya;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -18,29 +16,23 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author arinegara
+ * @author scumb46
  */
 @Entity
 @Table(name = "tkartustok")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Tkartustok.findAll", query = "SELECT t FROM Tkartustok t"),
-    @NamedQuery(name = "Tkartustok.findByNourut", query = "SELECT t FROM Tkartustok t WHERE t.nourut = :nourut"),
-    @NamedQuery(name = "Tkartustok.findByKodekatalog", query = "SELECT t FROM Tkartustok t WHERE t.kodekatalog = :kodekatalog"),
+    @NamedQuery(name = "Tkartustok.findByNourut", query = "SELECT t FROM Tkartustok t WHERE t.tkartustokPK.nourut = :nourut"),
+    @NamedQuery(name = "Tkartustok.findByKodekatalog", query = "SELECT t FROM Tkartustok t WHERE t.tkartustokPK.kodekatalog = :kodekatalog"),
     @NamedQuery(name = "Tkartustok.findByKodetrans", query = "SELECT t FROM Tkartustok t WHERE t.kodetrans = :kodetrans"),
     @NamedQuery(name = "Tkartustok.findByAwal", query = "SELECT t FROM Tkartustok t WHERE t.awal = :awal"),
     @NamedQuery(name = "Tkartustok.findByTransaksi", query = "SELECT t FROM Tkartustok t WHERE t.transaksi = :transaksi"),
     @NamedQuery(name = "Tkartustok.findByAkhir", query = "SELECT t FROM Tkartustok t WHERE t.akhir = :akhir")})
 public class Tkartustok implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "nourut")
-    private Long nourut;
-    @Basic(optional = false)
-    @Column(name = "kodekatalog")
-    private String kodekatalog;
+    @EmbeddedId
+    protected TkartustokPK tkartustokPK;
     @Basic(optional = false)
     @Column(name = "kodetrans")
     private String kodetrans;
@@ -57,33 +49,28 @@ public class Tkartustok implements Serializable {
     public Tkartustok() {
     }
 
-    public Tkartustok(Long nourut) {
-        this.nourut = nourut;
+    public Tkartustok(TkartustokPK tkartustokPK) {
+        this.tkartustokPK = tkartustokPK;
     }
 
-    public Tkartustok(Long nourut, String kodekatalog, String kodetrans, int awal, int transaksi, int akhir) {
-        this.nourut = nourut;
-        this.kodekatalog = kodekatalog;
+    public Tkartustok(TkartustokPK tkartustokPK, String kodetrans, int awal, int transaksi, int akhir) {
+        this.tkartustokPK = tkartustokPK;
         this.kodetrans = kodetrans;
         this.awal = awal;
         this.transaksi = transaksi;
         this.akhir = akhir;
     }
 
-    public Long getNourut() {
-        return nourut;
+    public Tkartustok(long nourut, String kodekatalog) {
+        this.tkartustokPK = new TkartustokPK(nourut, kodekatalog);
     }
 
-    public void setNourut(Long nourut) {
-        this.nourut = nourut;
+    public TkartustokPK getTkartustokPK() {
+        return tkartustokPK;
     }
 
-    public String getKodekatalog() {
-        return kodekatalog;
-    }
-
-    public void setKodekatalog(String kodekatalog) {
-        this.kodekatalog = kodekatalog;
+    public void setTkartustokPK(TkartustokPK tkartustokPK) {
+        this.tkartustokPK = tkartustokPK;
     }
 
     public String getKodetrans() {
@@ -121,7 +108,7 @@ public class Tkartustok implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (nourut != null ? nourut.hashCode() : 0);
+        hash += (tkartustokPK != null ? tkartustokPK.hashCode() : 0);
         return hash;
     }
 
@@ -132,7 +119,7 @@ public class Tkartustok implements Serializable {
             return false;
         }
         Tkartustok other = (Tkartustok) object;
-        if ((this.nourut == null && other.nourut != null) || (this.nourut != null && !this.nourut.equals(other.nourut))) {
+        if ((this.tkartustokPK == null && other.tkartustokPK != null) || (this.tkartustokPK != null && !this.tkartustokPK.equals(other.tkartustokPK))) {
             return false;
         }
         return true;
@@ -140,7 +127,7 @@ public class Tkartustok implements Serializable {
 
     @Override
     public String toString() {
-        return "com.kwa.cittajaya.Tkartustok[ nourut=" + nourut + " ]";
+        return "com.kwa.cittajaya.Tkartustok[ tkartustokPK=" + tkartustokPK + " ]";
     }
     
 }

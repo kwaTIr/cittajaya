@@ -160,6 +160,11 @@ public class VKlien extends javax.swing.JPanel {
         jLabel3.setText("Kota : ");
 
         jLabel5.setText("Alamat :");
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                test(evt);
+            }
+        });
 
         jLabel6.setText("Kode Pos :");
 
@@ -343,6 +348,10 @@ public class VKlien extends javax.swing.JPanel {
     private void txtTelponActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelponActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTelponActionPerformed
+
+    private void test(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_test
+        JOptionPane.showMessageDialog(null, "Test","Delete",1);
+    }//GEN-LAST:event_test
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDelete;

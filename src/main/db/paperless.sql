@@ -51,14 +51,13 @@ DROP TABLE IF EXISTS `tkartustok`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tkartustok` (
-  `nourut` bigint(20) NOT NULL AUTO_INCREMENT,
+  `nourut` bigint(10) NOT NULL,
   `kodekatalog` varchar(4) NOT NULL,
   `kodetrans` varchar(10) NOT NULL,
   `awal` int(11) NOT NULL,
   `transaksi` int(11) NOT NULL,
   `akhir` int(11) NOT NULL,
-  PRIMARY KEY (`nourut`),
-  UNIQUE KEY `uniqe` (`kodekatalog`,`kodetrans`)
+  PRIMARY KEY (`nourut`,`kodekatalog`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -125,7 +124,7 @@ CREATE TABLE `tklien` (
 
 LOCK TABLES `tklien` WRITE;
 /*!40000 ALTER TABLE `tklien` DISABLE KEYS */;
-INSERT INTO `tklien` VALUES ('ca1','csa','csac','DPS','csa','csa','csacsa');
+INSERT INTO `tklien` VALUES ('ca1','csa','csac','NGR','csa','csa','csacsa');
 /*!40000 ALTER TABLE `tklien` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -165,9 +164,9 @@ DROP TABLE IF EXISTS `tkodegenerator`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tkodegenerator` (
-  `tipe` varchar(4) NOT NULL,
+  `tipe` varchar(4) NOT NULL COMMENT 'Kartu stok : TKST;katalog',
   `kode` varchar(8) NOT NULL,
-  `last` int(10) unsigned zerofill NOT NULL,
+  `last` bigint(10) unsigned zerofill NOT NULL,
   PRIMARY KEY (`tipe`,`kode`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -178,7 +177,7 @@ CREATE TABLE `tkodegenerator` (
 
 LOCK TABLES `tkodegenerator` WRITE;
 /*!40000 ALTER TABLE `tkodegenerator` DISABLE KEYS */;
-INSERT INTO `tkodegenerator` VALUES ('TKHX','CCCCBBBB',0000000011);
+INSERT INTO `tkodegenerator` VALUES ('TKHX','CCCCBBBB',0000000013);
 /*!40000 ALTER TABLE `tkodegenerator` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -249,6 +248,7 @@ CREATE TABLE `ttransbrgitem` (
   `harga` double NOT NULL,
   `discount` varchar(20) NOT NULL COMMENT '10 \\n10 + 10.5\\n10+10+10',
   `total` double NOT NULL,
+  `status` varchar(4) NOT NULL COMMENT 'TTHS',
   PRIMARY KEY (`kode`,`kodekatalog`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='transaksi barang item';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -271,4 +271,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-08-05  6:04:24
+-- Dump completed on 2013-08-10 13:16:41

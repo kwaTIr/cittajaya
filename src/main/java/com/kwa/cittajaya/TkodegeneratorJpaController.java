@@ -22,7 +22,7 @@ public class TkodegeneratorJpaController extends GenericController {
         super(emf, em);
     }
 
-    public String getNumber(Tkodegenerator tkodegenerator) throws  Exception {
+    public long getNumber(Tkodegenerator tkodegenerator) throws  Exception {
         
                 checkConnection();
         setError("unknown", "unknownError");
@@ -35,7 +35,8 @@ public class TkodegeneratorJpaController extends GenericController {
             getEm().merge(tkodegenerator);
         }
         
-        return String.format("%010d",tkodegenerator.getLast());
+        //return String.format("%010d",tkodegenerator.getLast());
+        return tkodegenerator.getLast();
     }
 
     public List<Tkodegenerator> findTkodegeneratorEntities() {
