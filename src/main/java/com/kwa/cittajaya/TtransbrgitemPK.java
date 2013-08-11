@@ -22,8 +22,7 @@ public class TtransbrgitemPK implements Serializable {
     @Basic(optional = false)
     @Column(name = "kodekatalog")
     private String kodekatalog;
-    @Transient(name = "katalogdesc")
-    private String katalogdesc;
+
     
 
     public TtransbrgitemPK() {

@@ -179,7 +179,16 @@ public class TtransbrgitemJpaController extends GenericController {
         return q.getResultList();
 
     }
+    
+    public List<Ttransbrgitem> findTtransbrgitem(String kode) {
+                checkConnection();
 
+        Query q = getEm().createNamedQuery("Ttransbrgitem.findByKode").setParameter("kode", kode);
+
+        return q.getResultList();
+        //return getEm().find(Ttransbrgitem.class, kode);
+
+    }
     public Ttransbrgitem findTtransbrgitem(TtransbrgitemPK id) {
 
         return getEm().find(Ttransbrgitem.class, id);
