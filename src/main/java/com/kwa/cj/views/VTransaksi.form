@@ -81,7 +81,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="lblBarang" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="txtKode1" min="-2" pref="92" max="-2" attributes="0"/>
+                              <Component id="txtKodeBrg" min="-2" pref="92" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="lblBarangDesc" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -172,7 +172,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lblBarang" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtKode1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtKodeBrg" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lblBarangDesc" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -202,12 +202,12 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="tabBarang">
+        <Component class="javax.swing.JTable" name="tabItem">
           <Properties>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0"/>
             </Property>
-            <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor" postCode="tabBarang.getSelectionModel().addListSelectionListener(new RowListener());">
+            <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor" postCode="tabItem.getSelectionModel().addListSelectionListener(new RowListener());">
               <JTableSelectionModel selectionMode="0"/>
             </Property>
             <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
@@ -334,7 +334,7 @@
         <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cariBarang"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtKode1">
+    <Component class="javax.swing.JTextField" name="txtKodeBrg">
     </Component>
     <Component class="javax.swing.JLabel" name="lblTokoDesc">
       <Properties>

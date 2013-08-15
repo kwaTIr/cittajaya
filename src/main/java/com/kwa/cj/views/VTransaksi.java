@@ -7,6 +7,10 @@ package com.kwa.cj.views;
 import com.kwa.cittajaya.T010JpaController;
 import com.kwa.cittajaya.Tkatalog;
 import com.kwa.cittajaya.TkatalogJpaController;
+import com.kwa.cittajaya.Ttransbrgheader;
+import com.kwa.cittajaya.TtransbrgheaderJpaController;
+import com.kwa.cittajaya.Ttransbrgitem;
+import com.kwa.cittajaya.TtransbrgitemJpaController;
 import com.kwa.core.KWAMesg;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,38 +32,39 @@ public class VTransaksi extends javax.swing.JPanel {
         initValues();
     }
 
-    private void initTab(String kode) throws Exception{
-                   katalogp = new TkatalogJpaController(null, null);
-            modelKatalog mp = new modelKatalog(katalogp);
-            mp.searchAll();
-              tabBarang = new javax.swing.JTable();
-            list = mp.getData();
-            tabBarang.setModel(mp); 
+    private void initTab() throws Exception{
+                   tbip = new TtransbrgitemJpaController(tbhp.getEmf(), tbhp.getEm());
+            modelTransItem mti = new modelTransItem(tbip);
+            mti.searchAll(txtKode.getText());
+              tabItem = new javax.swing.JTable();
+            list = mti.getData();
+            tabItem.setModel(mti); 
             
 
             
    
           
-                  tabBarang.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tabBarang.getSelectionModel().addListSelectionListener(new RowListener());
-        tabBarang.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tabBarang);
+                  tabItem.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tabItem.getSelectionModel().addListSelectionListener(new RowListener());
+        tabItem.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tabItem);
        
     }
     private void initValues() {
         try {
+            tbhp = new TtransbrgheaderJpaController(null,null);
             initTab();
 
 
-            T010JpaController t010p = new T010JpaController(katalogp.getEmf(), katalogp.getEm());
-            T010CBModel t010cbmodel = new T010CBModel(t010p, "TKMR", "", "");
-            cbMerk.setModel(t010cbmodel);
-            cbMerk.setRenderer(new T010CBRender(t010p, "TKMR"));
+            T010JpaController t010p = new T010JpaController(tbhp.getEmf(), tbhp.getEm());
+            T010CBModel t010cbmodel = new T010CBModel(t010p, "TSB", "", "");
+            cbSatuan.setModel(t010cbmodel);
+            cbSatuan.setRenderer(new T010CBRender(t010p, "TSB"));
 
             
-            t010cbmodel = new T010CBModel(t010p, "TKT", "", "");
+            t010cbmodel = new T010CBModel(t010p, "TTBH", "", "");
             cbTipe.setModel(t010cbmodel);
-            cbTipe.setRenderer(new T010CBRender(t010p, "TKT"));
+            cbTipe.setRenderer(new T010CBRender(t010p, "TTBH"));
 
             
         } catch (Exception ex) {
@@ -77,7 +82,7 @@ public class VTransaksi extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabBarang = new javax.swing.JTable();
+        tabItem = new javax.swing.JTable();
         jToolBar1 = new javax.swing.JToolBar();
         btnNew = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
@@ -99,7 +104,7 @@ public class VTransaksi extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         txtKeterangan = new javax.swing.JTextField();
         lblBarang = new javax.swing.JLabel();
-        txtKode1 = new javax.swing.JTextField();
+        txtKodeBrg = new javax.swing.JTextField();
         lblTokoDesc = new javax.swing.JLabel();
         lblPegawaiDesc = new javax.swing.JLabel();
         lblBarangDesc = new javax.swing.JLabel();
@@ -114,10 +119,10 @@ public class VTransaksi extends javax.swing.JPanel {
         btnAdd = new javax.swing.JButton();
         btnRemove = new javax.swing.JButton();
 
-        tabBarang.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tabBarang.getSelectionModel().addListSelectionListener(new RowListener());
-        tabBarang.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tabBarang);
+        tabItem.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tabItem.getSelectionModel().addListSelectionListener(new RowListener());
+        tabItem.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tabItem);
 
         jToolBar1.setRollover(true);
 
@@ -291,7 +296,7 @@ public class VTransaksi extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblBarang)
                                 .addGap(18, 18, 18)
-                                .addComponent(txtKode1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtKodeBrg, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(lblBarangDesc))
                             .addGroup(layout.createSequentialGroup()
@@ -360,7 +365,7 @@ public class VTransaksi extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblBarang)
-                    .addComponent(txtKode1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtKodeBrg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblBarangDesc))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -382,17 +387,19 @@ public class VTransaksi extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void doNew(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doNew
-        txtKode.setText("");
-        cbMerk.setSelectedIndex(0);
+        /*txtKode.setText("");
+        
+        cbTipe.setSelectedIndex(0);
         txtArtikel.setText("");
         txtUkuran.setText("");
         txtWarna.setText("");
         cbTipe.setSelectedItem("N");
         
-        
+        */
     }//GEN-LAST:event_doNew
 
     private void doSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doSave
+        /*
         katalog = new Tkatalog(txtKode.getText().trim(),(String) cbMerk.getSelectedItem(), txtArtikel.getText().trim(), txtUkuran.getText().trim(), txtWarna.getText(),(String) cbTipe.getSelectedItem(),null);
         // pegp.commitTrx();
         try{
@@ -413,10 +420,11 @@ public class VTransaksi extends javax.swing.JPanel {
         }catch(Exception e){
             e.printStackTrace();
         }
+        * */
     }//GEN-LAST:event_doSave
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        katalog = new Tkatalog(txtKode.getText().trim(),(String) cbMerk.getSelectedItem(), txtArtikel.getText().trim(), txtUkuran.getText().trim(), txtWarna.getText(),(String) cbTipe.getSelectedItem(),null);
+        /*katalog = new Tkatalog(txtKode.getText().trim(),(String) cbMerk.getSelectedItem(), txtArtikel.getText().trim(), txtUkuran.getText().trim(), txtWarna.getText(),(String) cbTipe.getSelectedItem(),null);
                try{
         katalogp = new TkatalogJpaController(null,null);
             KWAMesg msg;
@@ -429,7 +437,7 @@ public class VTransaksi extends javax.swing.JPanel {
 
                     }catch(Exception e){
             e.printStackTrace();
-        }
+        }*/
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void cbTipeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTipeActionPerformed
@@ -489,21 +497,22 @@ public class VTransaksi extends javax.swing.JPanel {
     private javax.swing.JLabel lblPegawaiDesc;
     private javax.swing.JLabel lblToko;
     private javax.swing.JLabel lblTokoDesc;
-    private javax.swing.JTable tabBarang;
+    private javax.swing.JTable tabItem;
     private javax.swing.JFormattedTextField txtDiscount;
     private javax.swing.JFormattedTextField txtHarga;
     private javax.swing.JFormattedTextField txtJumlah;
     private javax.swing.JTextField txtKeterangan;
     private javax.swing.JTextField txtKlien;
     private javax.swing.JTextField txtKode;
-    private javax.swing.JTextField txtKode1;
+    private javax.swing.JTextField txtKodeBrg;
     private javax.swing.JTextField txtPegawai;
     // End of variables declaration//GEN-END:variables
-    private Tkatalog katalog;
-    private TkatalogJpaController katalogp;
-    
-    private T
-    private java.util.List<com.kwa.cittajaya.Tkatalog> list;
+    private Ttransbrgheader tbh;
+    private TtransbrgheaderJpaController tbhp;
+     private Ttransbrgitem tbi;
+    private TtransbrgitemJpaController tbip;   
+
+    private java.util.List<com.kwa.cittajaya.Ttransbrgitem> list;
 
     private class RowListener implements ListSelectionListener {
         
@@ -511,15 +520,14 @@ public class VTransaksi extends javax.swing.JPanel {
             if (event.getValueIsAdjusting()) {
                 return;
             }
-            tabBarang.getSelectedRow();
-            modelKatalog modelpeg = (modelKatalog) tabBarang.getModel();
-            katalog =  modelpeg.getData().get(tabBarang.getSelectedRow());
-            txtKode.setText(katalog.getKode());
-         cbMerk.setSelectedItem(katalog.getMerk());
-            txtArtikel.setText(katalog.getArtikel());
-            txtUkuran.setText(katalog.getUkuran());
-            txtWarna.setText(katalog.getWarna());
-            cbTipe.setSelectedItem(katalog.getTipe());
+            tabItem.getSelectedRow();
+            modelTransItem modelti = (modelTransItem) tabItem.getModel();
+            tbi =  modelti.getData().get(tabItem.getSelectedRow());
+            txtKodeBrg.setText(tbi.getTtransbrgitemPK().getKode());
+            txtJumlah.setText(String.valueOf(tbi.getJumlah()));
+            cbSatuan.setSelectedItem(tbi.getSatuan());
+            txtHarga.setText(String.valueOf(tbi.getHarga()));
+            txtDiscount.setText(tbi.getDiscount());
             
         }
     }

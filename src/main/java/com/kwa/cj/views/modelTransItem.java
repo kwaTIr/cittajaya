@@ -4,6 +4,7 @@
  */
 package com.kwa.cj.views;
 
+import com.kwa.cittajaya.Tkatalog;
 import com.kwa.cittajaya.TkatalogJpaController;
 import com.kwa.cittajaya.Ttransbrgitem;
 import com.kwa.cittajaya.TtransbrgitemJpaController;
@@ -19,7 +20,7 @@ import javax.swing.table.AbstractTableModel;
  */
 public class modelTransItem extends AbstractTableModel {
     
-    private String[] columnNames = {"Kode","Deskripsi", "Jumlah","Satuan","Harga","Discount","Total"};
+    private String[] columnNames = {"Kode","Deskripsi","Harga", "Jumlah","Satuan","Discount","Total"};
     private List<Ttransbrgitem> data ;
     private TtransbrgitemJpaController transitemp;
     
@@ -52,25 +53,35 @@ public class modelTransItem extends AbstractTableModel {
                 Ttransbrgitem item = data.get(rowIndex);
                 if(item==null) return null;
                 
-        TkatalogJpaController katalog;
-        try {
-            katalog = new TkatalogJpaController(transitemp.getEmf(),transitemp.getEm());
-        } catch (Exception ex) {
-            Logger.getLogger(modelTransItem.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
 
                 
                 switch(columnIndex){
                         case 0 : return item.getTtransbrgitemPK().getKodekatalog();
-                        case 1 : return     
-                        case 1 : return katalog.getMerk();
-                        case 2 : return katalog.getArtikel();
-                        case 3 : return katalog.getUkuran();
-                        case 4 : return katalog.getWarna();
-                        case 5 : return katalog.getTipe();
+                        case 1 : return getKatalogDetail(item.getTtransbrgitemPK().getKodekatalog());    
+                        case 2 : return item.getHarga();
+                        case 3 : return item.getJumlah();
+                        case 4 : return item.getSatuan();
+                        case 5 : return item.getDiscount();
+                        case 6 : return item.getTotal();
                       
                 }
                 return null;
+    }
+    
+    public String getKatalogDetail(String kode){
+        TkatalogJpaController katalogp;
+        try {
+            katalogp = new TkatalogJpaController(this.transitemp.getEmf(),this.transitemp.getEm());
+              Tkatalog katalog = katalogp.findTkatalog(kode);
+              return katalog.getLongdesc();
+        } catch (Exception ex) {
+            Logger.getLogger(modelTransItem.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      
+        return "";
+        
+        
     }
     
 }

@@ -22,7 +22,7 @@ public class App
             
             //JPanel p = new VPegawai();
             //JPanel p = new VKatalog();
-            JPanel p = new VKlien();
+            JPanel p = new VTransaksi();
             f.getContentPane().add(p);  
             f.setSize(p.getPreferredSize());  
             f.setLocationRelativeTo(null);;  
