@@ -178,8 +178,6 @@ public class VTransaksi extends javax.swing.JPanel {
 
         jLabel4.setText("Tipe :");
 
-        jXDatePicker1.setEditable(false);
-
         jLabel5.setText("Tanggal :");
 
         lblToko.setText("Toko :");
@@ -195,11 +193,6 @@ public class VTransaksi extends javax.swing.JPanel {
             }
         });
 
-        lblTokoDesc.setText("jLabel3");
-
-        lblPegawaiDesc.setText("jLabel3");
-
-        lblBarangDesc.setText("Barang : ");
         lblBarangDesc.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 lblBarangDesccariBarang(evt);
@@ -219,7 +212,11 @@ public class VTransaksi extends javax.swing.JPanel {
             }
         });
 
-        txtJumlah.setText("jFormattedTextField1");
+        txtJumlah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtJumlahActionPerformed(evt);
+            }
+        });
 
         lblBarang3.setText("Harga :");
         lblBarang3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -228,16 +225,12 @@ public class VTransaksi extends javax.swing.JPanel {
             }
         });
 
-        txtHarga.setText("jFormattedTextField1");
-
         lblBarang4.setText("Discount :");
         lblBarang4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 lblBarang4cariBarang(evt);
             }
         });
-
-        txtDiscount.setText("jFormattedTextField1");
 
         btnAdd.setText("add");
 
@@ -300,21 +293,22 @@ public class VTransaksi extends javax.swing.JPanel {
                                 .addGap(18, 18, 18)
                                 .addComponent(lblBarangDesc))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(lblBarang2)
                                         .addGap(18, 18, 18)
-                                        .addComponent(txtJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(cbSatuan, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(txtJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(lblBarang3)
                                         .addGap(18, 18, 18)
-                                        .addComponent(txtHarga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(75, 75, 75)
+                                        .addComponent(txtHarga)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(cbSatuan, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
                                         .addComponent(lblBarang4)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txtDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtDiscount)))
                                 .addGap(28, 28, 28)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btnRemove)
@@ -467,6 +461,10 @@ public class VTransaksi extends javax.swing.JPanel {
     private void lblBarang4cariBarang(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBarang4cariBarang
         // TODO add your handling code here:
     }//GEN-LAST:event_lblBarang4cariBarang
+
+    private void txtJumlahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtJumlahActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtJumlahActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
