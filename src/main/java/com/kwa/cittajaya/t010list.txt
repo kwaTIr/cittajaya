@@ -1,0 +1,6 @@
+tsb : satuan barang
+tkot : kota
+tspg : status pegawai
+tkt : status barang (normal/bs)
+tkmr : merk
+ttb : tipe transaksi (masuk/keluar)
