@@ -185,9 +185,9 @@ public class NewMasterDetailForm extends JPanel {
     
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         int[] selected = masterTable.getSelectedRows();
-        List<com.kwa.cittajaya.T010> toRemove = new ArrayList<com.kwa.cittajaya.T010>(selected.length);
+        List<com.kwa.cj.modules.t010.T010> toRemove = new ArrayList<com.kwa.cj.modules.t010.T010>(selected.length);
         for (int idx = 0; idx < selected.length; idx++) {
-            com.kwa.cittajaya.T010 t = list.get(masterTable.convertRowIndexToModel(selected[idx]));
+            com.kwa.cj.modules.t010.T010 t = list.get(masterTable.convertRowIndexToModel(selected[idx]));
             toRemove.add(t);
             entityManager.remove(t);
         }
@@ -195,7 +195,7 @@ public class NewMasterDetailForm extends JPanel {
     }//GEN-LAST:event_deleteButtonActionPerformed
     
     private void newButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newButtonActionPerformed
-        com.kwa.cittajaya.T010 t = new com.kwa.cittajaya.T010();
+        com.kwa.cj.modules.t010.T010 t = new com.kwa.cj.modules.t010.T010();
         entityManager.persist(t);
         list.add(t);
         int row = list.size() - 1;
@@ -210,8 +210,8 @@ public class NewMasterDetailForm extends JPanel {
         } catch (RollbackException rex) {
             rex.printStackTrace();
             entityManager.getTransaction().begin();
-            List<com.kwa.cittajaya.T010> merged = new ArrayList<com.kwa.cittajaya.T010>(list.size());
-            for (com.kwa.cittajaya.T010 t : list) {
+            List<com.kwa.cj.modules.t010.T010> merged = new ArrayList<com.kwa.cj.modules.t010.T010>(list.size());
+            for (com.kwa.cj.modules.t010.T010 t : list) {
                 merged.add(entityManager.merge(t));
             }
             list.clear();
@@ -226,7 +226,7 @@ public class NewMasterDetailForm extends JPanel {
     private javax.swing.JButton deleteButton;
     private javax.persistence.EntityManager entityManager;
     private javax.swing.JComboBox jComboBox1;
-    private java.util.List<com.kwa.cittajaya.T010> list;
+    private java.util.List<com.kwa.cj.modules.t010.T010> list;
     private javax.swing.JScrollPane masterScrollPane;
     private javax.swing.JTable masterTable;
     private javax.swing.JButton newButton;

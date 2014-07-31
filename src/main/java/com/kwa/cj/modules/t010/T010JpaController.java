@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.kwa.cittajaya;
+package com.kwa.cj.modules.t010;
 
 import com.kwa.cittajaya.exceptions.NonexistentEntityException;
 import com.kwa.core.GenericController;

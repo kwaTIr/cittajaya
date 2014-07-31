@@ -2,11 +2,8 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.kwa.cj.views;
+package com.kwa.cj.modules.t010;
 
-import com.kwa.cittajaya.T010;
-import com.kwa.cittajaya.T010JpaController;
-import com.kwa.cittajaya.T010PK;
 import java.awt.Component;
 import javax.swing.JList;
 import javax.swing.plaf.basic.BasicComboBoxRenderer;

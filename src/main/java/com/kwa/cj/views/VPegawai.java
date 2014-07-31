@@ -4,7 +4,9 @@
  */
 package com.kwa.cj.views;
 
-import com.kwa.cittajaya.T010JpaController;
+import com.kwa.cj.modules.t010.T010CBModel;
+import com.kwa.cj.modules.t010.T010CBRender;
+import com.kwa.cj.modules.t010.T010JpaController;
 import com.kwa.cittajaya.Tpegawai;
 import com.kwa.cittajaya.TpegawaiJpaController;
 import com.kwa.core.KWAMesg;
