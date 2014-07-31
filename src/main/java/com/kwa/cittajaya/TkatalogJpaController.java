@@ -4,6 +4,8 @@
  */
 package com.kwa.cittajaya;
 
+import com.kwa.cj.modules.t010.T010JpaController;
+import com.kwa.cj.modules.t010.T010;
 import com.kwa.cittajaya.exceptions.NonexistentEntityException;
 import com.kwa.cittajaya.exceptions.PreexistingEntityException;
 import com.kwa.core.GenericController;
