@@ -1,4 +1,4 @@
-package com.kwa.core;
+package com.kwa.test;
 
 import java.util.ArrayList;
 
@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Hello world!
  *
  */
-public class App 
+public class Diskon 
 {
     public static void main( String[] args )
     {
@@ -24,7 +24,7 @@ public class App
         
         
 
-        str = "10+10,5+2fd";
+        str = "10+10,5+2000";
 
         try {
             String strtmp = str.replace(",", ".");

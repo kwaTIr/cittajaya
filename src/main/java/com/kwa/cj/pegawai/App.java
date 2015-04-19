@@ -1,10 +1,7 @@
-package com.kwa.cj.views;
+package com.kwa.cj.pegawai;
 
-import com.kwa.core.*;
-import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 /**
  * Hello world!
@@ -20,9 +17,9 @@ public class App
                         JFrame f = new JFrame();  
             f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
             
-            //JPanel p = new VPegawai();
+            JPanel p = new VPegawai();
             //JPanel p = new VKatalog();
-            JPanel p = new VTransaksi();
+            //JPanel p = new VTransaksi();
             f.getContentPane().add(p);  
             f.setSize(p.getPreferredSize());  
             f.setLocationRelativeTo(null);;  

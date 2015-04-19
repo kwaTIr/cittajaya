@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.kwa.cittajaya;
+package com.kwa.cj.pegawai;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;

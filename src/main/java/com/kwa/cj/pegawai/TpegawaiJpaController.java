@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.kwa.cittajaya;
+package com.kwa.cj.pegawai;
 
 import com.kwa.cj.modules.t010.T010JpaController;
 import com.kwa.cj.modules.t010.T010;

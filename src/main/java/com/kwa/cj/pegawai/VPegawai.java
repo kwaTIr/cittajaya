@@ -1,13 +1,9 @@
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
- *//*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
  */
-package com.kwa.cj.modules.t010;
+package com.kwa.cj.pegawai;
 
-import com.kwa.cj.views.*;
 import com.kwa.cj.modules.t010.T010CBModel;
 import com.kwa.cj.modules.t010.T010CBRender;
 import com.kwa.cj.modules.t010.T010JpaController;
@@ -24,12 +20,12 @@ import org.eclipse.persistence.descriptors.TimestampLockingPolicy;
  *
  * @author arinegara
  */
-public class VT010Search extends javax.swing.JPanel {
+public class VPegawai extends javax.swing.JPanel {
 
     /**
      * Creates new form VPegawai
      */
-    public VT010Search() {
+    public VPegawai() {
         initComponents();
         initValues();
     }
@@ -80,10 +76,18 @@ public class VT010Search extends javax.swing.JPanel {
         tabPegawai = new javax.swing.JTable();
         jToolBar1 = new javax.swing.JToolBar();
         btnNew = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JToolBar.Separator();
+        btnSave = new javax.swing.JButton();
+        jSeparator2 = new javax.swing.JToolBar.Separator();
+        btnDelete = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JToolBar.Separator();
         btnSearch = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        txtKeyword = new javax.swing.JTextField();
+        txtKode = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        txtNama = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        cbStatus = new javax.swing.JComboBox();
 
         tabPegawai.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tabPegawai.getSelectionModel().addListSelectionListener(new RowListener());
@@ -102,6 +106,30 @@ public class VT010Search extends javax.swing.JPanel {
             }
         });
         jToolBar1.add(btnNew);
+        jToolBar1.add(jSeparator1);
+
+        btnSave.setText("save");
+        btnSave.setFocusable(false);
+        btnSave.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnSave.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                doSave(evt);
+            }
+        });
+        jToolBar1.add(btnSave);
+        jToolBar1.add(jSeparator2);
+
+        btnDelete.setText("delete");
+        btnDelete.setFocusable(false);
+        btnDelete.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnDelete.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnDelete);
         jToolBar1.add(jSeparator3);
 
         btnSearch.setText("search");
@@ -110,7 +138,11 @@ public class VT010Search extends javax.swing.JPanel {
         btnSearch.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(btnSearch);
 
-        jLabel1.setText("Keyword :");
+        jLabel1.setText("Kode :");
+
+        jLabel2.setText("Nama :");
+
+        jLabel3.setText("Status :");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -122,9 +154,19 @@ public class VT010Search extends javax.swing.JPanel {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtKeyword, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtKode, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -134,32 +176,87 @@ public class VT010Search extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel1)
-                    .addComponent(txtKeyword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtKode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2)
+                    .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(cbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void doNew(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doNew
-        txtKeyword.setText("");
+        txtKode.setText("");
         txtNama.setText("");
         cbStatus.setSelectedItem("A");
     }//GEN-LAST:event_doNew
 
+    private void doSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doSave
+        peg = new Tpegawai(txtKode.getText().trim(),txtNama.getText().trim(), (String) cbStatus.getSelectedItem());
+        // pegp.commitTrx();
+        try{
+           
+            pegp = new TpegawaiJpaController(null,null);
+            KWAMesg msg;
+            pegp.initTrx();
+            if(pegp.findTpegawai(txtKode.getText())==null){
+                msg = pegp.create(peg);
+                JOptionPane.showMessageDialog(null, msg.getMesg(),"Create",1);
+            }else{
+                msg = pegp.edit(peg);
+                JOptionPane.showMessageDialog(null, msg.getMesg(),"Modify",1);
+            }
+            pegp.commitTrx();
+            initTab();
+            
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_doSave
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        peg = new Tpegawai(txtKode.getText().trim(),txtNama.getText().trim(), (String) cbStatus.getSelectedItem());
+               try{
+        pegp = new TpegawaiJpaController(null,null);
+            KWAMesg msg;
+            pegp.initTrx();
+            
+            msg = pegp.destroy(peg.getKode());
+ pegp.commitTrx();
+                JOptionPane.showMessageDialog(null, msg.getMesg(),"Delete",1);
+                initTab();
+
+                    }catch(Exception e){
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnNew;
+    private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSearch;
+    private javax.swing.JComboBox cbStatus;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JToolBar.Separator jSeparator1;
+    private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JTable tabPegawai;
-    private javax.swing.JTextField txtKeyword;
+    private javax.swing.JTextField txtKode;
+    private javax.swing.JTextField txtNama;
     // End of variables declaration//GEN-END:variables
-    private T010 t010E;
-    private T010JpaController t010C;
-    private java.util.List<com.kwa.cj.modules.t010.T010> list;
+    private Tpegawai peg;
+    private TpegawaiJpaController pegp;
+    private java.util.List<com.kwa.cj.pegawai.Tpegawai> list;
 
     private class RowListener implements ListSelectionListener {
         
@@ -170,7 +267,7 @@ public class VT010Search extends javax.swing.JPanel {
             tabPegawai.getSelectedRow();
             modelPegawai modelpeg = (modelPegawai) tabPegawai.getModel();
             peg =  modelpeg.getData().get(tabPegawai.getSelectedRow());
-            txtKeyword.setText(peg.getKode());
+            txtKode.setText(peg.getKode());
             txtNama.setText(peg.getNama());
             cbStatus.setSelectedItem(peg.getStatus());
         }
